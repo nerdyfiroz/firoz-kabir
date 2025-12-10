@@ -1,857 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Muhammad Firoz Kabir | Mathematics × AI × Blockchain</title>
+  <meta charset="UTF-8">
+  <title>Muhammad Firoz Kabir | Math • AI • Blockchain • Marketing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    :root {
-      --bg-color: #050816;
-      --bg-alt: #0b1120;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.15);
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --card-bg: #020617;
-      --border-subtle: rgba(148, 163, 184, 0.25);
-      --shadow-soft: 0 20px 40px rgba(15, 23, 42, 0.8);
-      --radius-xl: 18px;
-      --transition-fast: 0.25s ease;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-    }
-
     body {
-      background: radial-gradient(circle at top, #1d263b 0, #020617 45%, #000 100%);
-      color: var(--text-main);
-      line-height: 1.7;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #050816;
+      color: #e5e7eb;
+      line-height: 1.6;
     }
 
     a {
-      color: inherit;
+      color: #38bdf8;
       text-decoration: none;
     }
 
-    /* Top moving line (marquee style) */
-    .ticker {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: linear-gradient(to right, #0f172a, #020617);
-      border-bottom: 1px solid var(--border-subtle);
-      overflow: hidden;
-      white-space: nowrap;
-      padding: 6px 0;
-      font-size: 0.8rem;
-    }
-
-    .ticker-inner {
-      display: inline-block;
-      animation: ticker-scroll 18s linear infinite;
-    }
-
-    @keyframes ticker-scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
-    }
-
-    .ticker span {
-      margin-right: 40px;
-      color: var(--text-muted);
-    }
-
-    .ticker span strong {
-      color: var(--accent);
-    }
-
-    /* Layout */
-    .wrapper {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 1rem 3rem;
-    }
-
     header {
-      position: sticky;
-      top: 32px;
-      z-index: 40;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(
-        to bottom,
-        rgba(15, 23, 42, 0.9),
-        rgba(15, 23, 42, 0.6),
-        transparent
-      );
+      text-align: center;
+      padding: 30px 20px;
+      background: #020617;
+      border-bottom: 1px solid #1f2937;
     }
 
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.75rem 1.25rem;
-      margin: 1rem 0 1.75rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.9);
+    header img {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #38bdf8;
     }
 
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
+    header h1 {
+      margin: 15px 0 5px;
+      font-size: 26px;
     }
 
-    .logo-circle {
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 0, #f97316, #22c55e, #0ea5e9, #6366f1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
+    header p {
+      color: #9ca3af;
+      font-size: 14px;
     }
 
-    .logo-circle span {
-      font-weight: 800;
-      color: #020617;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.25rem;
-      font-size: 0.85rem;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      padding: 0.3rem 0.8rem;
-      border-radius: 999px;
-      transition: var(--transition-fast);
-    }
-
-    .nav-links a:hover {
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--accent);
-    }
-
-    .nav-links a.primary {
-      background: var(--accent-soft);
-      color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.5);
-    }
-
-    .nav-links a.primary:hover {
-      background: rgba(56, 189, 248, 0.18);
-    }
-
-    .menu-toggle {
-      display: none;
-      font-size: 1.25rem;
-      cursor: pointer;
-    }
-
-    /* Hero */
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr);
-      gap: 2.5rem;
-      padding: 2.5rem 1rem 3rem;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
-    }
-
-    .badge-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 12px #22c55e;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.3rem, 3vw + 1rem, 3rem);
-      line-height: 1.1;
-      margin-bottom: 0.4rem;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(to right, #38bdf8, #22c55e, #eab308);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero-subtitle {
-      font-size: 0.95rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 0.9rem;
-    }
-
-    .hero-quote {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      margin-bottom: 1.4rem;
-    }
-
-    .hero-quote strong {
-      color: var(--text-main);
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin-bottom: 1.4rem;
+    .buttons {
+      margin-top: 15px;
     }
 
     .btn {
-      padding: 0.65rem 1.1rem;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-size: 0.9rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: var(--transition-fast);
-      background: none;
-      color: inherit;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      display: inline-block;
+      margin: 6px;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      background: #38bdf8;
       color: #020617;
-      font-weight: 600;
-      box-shadow: 0 15px 25px rgba(56, 189, 248, 0.4);
+      font-weight: bold;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 20px 30px rgba(56, 189, 248, 0.55);
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
     }
 
-    .btn-outline {
-      border-color: rgba(148, 163, 184, 0.6);
-      color: var(--text-muted);
-      background: rgba(15, 23, 42, 0.8);
-    }
-
-    .btn-outline:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(15, 23, 42, 0.95);
-    }
-
-    .hero-small {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .hero-tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1.4rem;
-    }
-
-    .pill {
-      font-size: 0.75rem;
-      padding: 0.3rem 0.7rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      color: var(--text-muted);
-    }
-
-    /* Hero right: profile card */
-    .hero-card {
-      position: relative;
-      border-radius: 26px;
-      padding: 1.5rem 1.4rem;
-      background: radial-gradient(circle at 0 -20%, rgba(56, 189, 248, 0.25), transparent 60%),
-        linear-gradient(to bottom right, #020617, #020617);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-    }
-
-    .hero-card-glow {
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.6), transparent 70%);
-      top: -60px;
-      right: -60px;
-      filter: blur(2px);
-      opacity: 0.6;
-    }
-
-    .hero-avatar {
-      width: 88px;
-      height: 88px;
-      border-radius: 30px;
-      border: 2px solid rgba(148, 163, 184, 0.8);
-      background: radial-gradient(circle at 30% 0, #22c55e, #0ea5e9, #1f2937);
-      margin-bottom: 0.85rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #020617;
-      box-shadow: 0 14px 30px rgba(15, 23, 42, 1);
-    }
-
-    .hero-card h2 {
-      font-size: 1.05rem;
-      margin-bottom: 0.15rem;
-    }
-
-    .hero-card-role {
-      font-size: 0.82rem;
-      color: var(--accent);
-      margin-bottom: 0.7rem;
-    }
-
-    .hero-card-text {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 0.9rem;
-    }
-
-    .hero-card-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1rem;
-    }
-
-    .hero-card-badges span {
-      font-size: 0.72rem;
-      padding: 0.25rem 0.6rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      color: var(--text-muted);
-    }
-
-    .hero-card-footer {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      padding-top: 0.7rem;
-      border-top: 1px dashed rgba(148, 163, 184, 0.6);
-    }
-
-    /* Sections */
     section {
-      margin-bottom: 3rem;
-      padding: 2.2rem 1.2rem;
-      border-radius: var(--radius-xl);
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      box-shadow: var(--shadow-soft);
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+      border-bottom: 1px solid #1f2937;
     }
 
-    .section-header {
-      margin-bottom: 1.5rem;
+    h2 {
+      font-size: 22px;
+      color: #38bdf8;
+      margin-bottom: 15px;
     }
 
-    .section-eyebrow {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--accent);
-      margin-bottom: 0.2rem;
+    ul {
+      padding-left: 20px;
     }
 
-    .section-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 0.3rem;
+    ul li {
+      margin-bottom: 6px;
     }
 
-    .section-subtitle {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-    }
-
-    /* About */
-    .about-grid {
+    .grid {
       display: grid;
-      gap: 1.7rem;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 
-    .about-text {
-      font-size: 0.9rem;
-      color: var(--text-main);
-    }
-
-    .about-text p + p {
-      margin-top: 0.7rem;
-    }
-
-    .facts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
-
-    .chip {
-      font-size: 0.78rem;
-      padding: 0.4rem 0.7rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      color: var(--text-muted);
-    }
-
-    /* Timeline */
-    .timeline {
-      border-left: 1px solid rgba(148, 163, 184, 0.5);
-      margin-top: 0.5rem;
-      padding-left: 1.1rem;
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 1.4rem;
-    }
-
-    .timeline-item::before {
-      content: "";
-      position: absolute;
-      left: -1.2rem;
-      top: 0.2rem;
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
-    }
-
-    .timeline-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 0.1rem;
-    }
-
-    .timeline-meta {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-bottom: 0.35rem;
-    }
-
-    .timeline-desc {
-      font-size: 0.8rem;
-      color: var(--text-main);
-    }
-
-    /* Skills */
-    .tag-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.6rem;
-    }
-
-    .tag {
-      padding: 0.3rem 0.7rem;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-muted);
-    }
-
-    .skills-columns {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.25rem;
-      margin-top: 1.2rem;
-    }
-
-    .skills-card {
-      padding: 1rem;
-      border-radius: 14px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.1), transparent 55%),
-        rgba(15, 23, 42, 0.9);
-    }
-
-    .skills-card h3 {
-      font-size: 0.92rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .skills-card p {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    /* Community section */
-    .community-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      gap: 1.7rem;
-    }
-
-    .speech {
-      font-size: 0.9rem;
-      color: var(--text-main);
-      line-height: 1.8;
-    }
-
-    .speech p + p {
-      margin-top: 0.9rem;
-    }
-
-    .community-card {
-      padding: 1rem;
-      border-radius: 14px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: rgba(15, 23, 42, 0.96);
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .community-stat-row {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 0.6rem;
-      font-size: 0.8rem;
-    }
-
-    /* Projects */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1.2rem;
-      margin-top: 0.75rem;
-    }
-
-    .project-card {
-      padding: 1rem;
-      border-radius: 14px;
-      background: rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      transition: var(--transition-fast);
-    }
-
-    .project-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent);
-      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.9);
-    }
-
-    .project-title {
-      font-size: 0.95rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .project-role {
-      font-size: 0.78rem;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .project-desc {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 0.6rem;
-    }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    /* Contact */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
-      gap: 1.7rem;
-    }
-
-    .contact-list {
-      font-size: 0.86rem;
-      color: var(--text-main);
-    }
-
-    .contact-list p {
-      margin-bottom: 0.5rem;
-    }
-
-    .contact-list a {
-      color: var(--accent);
-    }
-
-    form {
-      display: grid;
-      gap: 0.75rem;
-      font-size: 0.8rem;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 0.15rem;
-      color: var(--text-muted);
-    }
-
-    input,
-    textarea {
-      width: 100%;
-      padding: 0.55rem 0.65rem;
-      border-radius: 10px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text-main);
-      font-size: 0.82rem;
-      outline: none;
-      transition: var(--transition-fast);
-    }
-
-    input:focus,
-    textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.3);
-    }
-
-    textarea {
-      min-height: 120px;
-      resize: vertical;
+    .card {
+      background: #020617;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid #1f2937;
     }
 
     footer {
       text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 2rem;
-      padding-bottom: 0.5rem;
-    }
-
-    footer span {
-      color: var(--accent);
-    }
-
-    /* Responsive */
-    @media (max-width: 840px) {
-      header {
-        top: 29px;
-      }
-
-      .nav {
-        padding: 0.6rem 0.9rem;
-      }
-
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 54px;
-        right: 18px;
-        flex-direction: column;
-        padding: 0.6rem;
-        border-radius: 14px;
-        background: rgba(15, 23, 42, 0.98);
-        box-shadow: 0 15px 30px rgba(15, 23, 42, 0.95);
-      }
-
-      .nav-links.show {
-        display: flex;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-        padding-top: 1.6rem;
-      }
-
-      .hero-card {
-        order: -1;
-      }
-
-      section {
-        padding: 1.6rem 1.1rem;
-      }
-
-      .community-grid,
-      .contact-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .wrapper {
-        padding: 0 0.7rem 2.6rem;
-      }
-
-      .hero h1 {
-        font-size: 2.1rem;
-      }
+      padding: 20px;
+      font-size: 13px;
+      color: #9ca3af;
     }
   </style>
 </head>
+
 <body>
-  <!-- Moving line / marquee -->
-  <div class="ticker">
-    <div class="ticker-inner">
-      <span><strong>Mathematics builds it.</strong> AI powers it. Blockchain secures it. Digital marketing grows it.</span>
-      <span>Three forces. One future.</span>
-      <span>Growing a learning & crypto community from Bangladesh.</span>
-      <span>Mathematics, AI, Blockchain & Digital Marketing</span>
+
+  <!-- HERO -->
+  <header>
+    <img src="profile.jpg" alt="Muhammad Firoz Kabir">
+    <h1>Muhammad Firoz Kabir</h1>
+    <p>Math • AI • Blockchain • Digital Marketing</p>
+    <p><strong>“Together we build. Together we grow.”</strong></p>
+
+    <div class="buttons">
+      <a class="btn" href="#contact">Contact</a>
+      <a class="btn secondary" href="#" target="_blank">Download Resume (Coming Soon)</a>
     </div>
-  </div>
+  </header>
 
-  <div class="wrapper">
-    <!-- Navigation -->
-    <header>
-      <nav class="nav">
-        <div class="nav-left">
-          <div class="logo-circle" style="overflow:hidden; padding:0;">
-  <img src="profile.jpg" alt="Firoz Kabir" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-</div>
-            <div style="font-size: 0.8rem;">Muhammad</div>
-            <div style="font-size: 0.8rem; opacity: 0.8;">Firoz Kabir</div>
-          </div>
-        </div>
+  <!-- ABOUT -->
+  <section>
+    <h2>About Me</h2>
+    <p>
+      I’m Muhammad Firoz Kabir from Rangpur, Bangladesh.  
+      I’m currently studying at the University of Rajshahi and learning from everywhere.
+    </p>
+  </section>
 
-        <div class="nav-links" id="nav-links">
-          <a href="#about">About</a>
-          <a href="#academics">Academic</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#community">Community</a>
-          <a href="#contact" class="primary">Contact</a>
-        </div>
+  <!-- SKILLS -->
+  <section>
+    <h2>Main Skills</h2>
+    <ul>
+      <li>Blockchain Testing & Analysis</li>
+      <li>Solving Mathematics</li>
+      <li>Creating Content using AI</li>
+      <li>Digital Marketing</li>
+    </ul>
+  </section>
 
-        <div class="menu-toggle" id="menu-toggle">☰</div>
-      </nav>
-    </header>
+  <!-- PROJECTS -->
+  <section>
+    <h2>Projects & Work</h2>
 
-    <!-- Hero -->
-    <main>
-      <section id="home" class="hero">
-        <div>
-          <div class="badge">
-            <div class="badge-dot"></div>
-            <span>Math Student · AI & Blockchain Explorer · Bangladesh</span>
-          </div>
-          <div class="hero-subtitle">Mathematics × AI × Blockchain × Digital Marketing</div>
-          <h1>
-            Assalamualaikum I'm <span>Muhammad Firoz Kabir</span>
-          </h1>
-          <p class="hero-quote">
-            <strong>“Mathematics builds it. AI powers it. Blockchain secures it.”</strong>
-            &nbsp;— Three forces, one future. I’m exploring how these ideas connect
-            to real-world products, crypto communities, and digital brands.
-          </p>
+    <div class="grid">
+      <div class="card">
+        <h3>Web3 Testing & Analysis</h3>
+        <p>Currently testing and analyzing multiple Web3 systems and blockchain platforms.</p>
+      </div>
 
-          <div class="hero-buttons">
-            <a href="#contact" class="btn btn-primary">Contact me</a>
-            <section id="contact">
-              <p>
-  📩 <strong>Email:</strong>
-  <a href="mailto:firoj.ru196@gmail.com">firoj.ru196@gmail.com</a>
-              </p>
-            </section>
-            <!-- Replace # with your resume link later -->
-            <a href="#" class="btn btn-outline">View Resume (coming soon)</a>
-          </div>
+      <div class="card">
+        <h3>Community Support Admin</h3>
+        <p>Active support admin in several Web3 communities.</p>
+      </div>
 
-          <p class="hero-small">
-            Currently a Mathematics student at
-            <strong>University of Rajshahi</strong>, learning how to blend numbers,
-            code, Web3 and digital marketing into something useful for people.
-          </p>
+      <div class="card">
+        <h3>Office Secretary – GSWA</h3>
+        <p>Serving as Office Secretary of GSWA community.</p>
+      </div>
+    </div>
+  </section>
 
-          <div class="hero-tag-row">
-            <span class="pill">Mathematics & Problem Solving</span>
-            <span class="pill">AI & Automation</span>
-            <span class="pill">Blockchain & Crypto</span>
-            <span class="pill">Digital Marketing</span>
-            <span class="pill">Community Building</span>
-          </div>
-        </div>
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contact & Profiles</h2>
 
-        <div class="hero-card">
-          <div class="hero-card-glow"></div>
-          <div class="hero-avatar">
-  <img src="profile.jpg" alt="Muhammad Firoz Kabir" style="width:100%; height:100%; object-fit:cover; border-radius:30px;">
-</div>
-          <h2>Muhammad Firoz Kabir</h2>
-          <div class="hero-card-role">Math Student · Web & Web3 Learner</div>
-          <p class="hero-card-text">
-            From Rangpur to Rajshahi, I’m building a journey around mathematics,
-            AI, blockchain, and digital marketing — and turning it into value
-            for a growing community.
-          </p>
+    <p>📧 Email: <a href="mailto:firojfk@outlook.com">firojfk@outlook.com</a></p>
+    <p>💼 LinkedIn: <a href="https://www.linkedin.com/in/md-firoz-kabir-65a87b393" target="_blank">Visit Profile</a></p>
+    <p>💻 GitHub: <a href="https://github.com/nerdyfiroz" target="_blank">github.com/nerdyfiroz</a></p>
+    <p>📨 Telegram: <a href="https://t.me/nerdyfiroz" target="_blank">@nerdyfiroz</a></p>
 
-          <div class="hero-card-badges">
-            <span>📍 Bangladesh</span>
-            <span>🎓 Mathematics @ Rajshahi University</span>
-            <span>🤝 Open to collaborations</span>
-          </div>
+  </section>
 
-          <div class="hero-card-footer">
-            <div>
-              Focus<br />
-              <strong>Math · AI · Web3</strong>
-            </div>
-            <div style="text-align: right;">
-              Vision<br />
-              <strong>“Three forces. One future.”</strong>
-            </div>
-          </div>
-        </div>
-      </section>
+  <!-- FOOTER -->
+  <footer>
+    © <span id="year"></span> Muhammad Firoz Kabir — All rights reserved.
+  </footer>
 
-      <!-- About -->
-      <section id="about">
-        <div class="section-header">
-          <div class="section-eyebrow">About me</div>
-          <div class="section-title">From numbers to networks</div>
-          <div class="section-subtitle">
-            A simple person who loves problem-solving, technology and community.
-          </div>
-        </div>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 
-        <div class="about-grid">
-          <div class="
+</body>
+</html>
