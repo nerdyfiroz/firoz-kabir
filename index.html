@@ -6,6 +6,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
+    /* ✅ MATH + BLOCKCHAIN SYMBOL BACKGROUND */
+.bg-symbols {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-symbols span {
+  position: absolute;
+  font-size: 24px;
+  opacity: 0.06;
+  color: #38bdf8;
+  animation: float 20s linear infinite;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(110vh);
+  }
+  to {
+    transform: translateY(-10vh);
+  }
+}
+    <body>
+    <!-- ✅ BACKGROUND MATH & BLOCKCHAIN SYMBOLS -->
+<div class="bg-symbols">
+  <span style="left:5%;  animation-delay:0s;">∑</span>
+  <span style="left:15%; animation-delay:3s;">∞</span>
+  <span style="left:25%; animation-delay:6s;">π</span>
+  <span style="left:35%; animation-delay:9s;">√</span>
+  <span style="left:45%; animation-delay:12s;">θ</span>
+  <span style="left:55%; animation-delay:15s;">∫</span>
+
+  <span style="left:65%; animation-delay:2s;">⛓</span>
+  <span style="left:75%; animation-delay:5s;">₿</span>
+  <span style="left:85%; animation-delay:8s;">Ξ</span>
+  <span style="left:95%; animation-delay:11s;">🔗</span>
+</div>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
