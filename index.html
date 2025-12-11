@@ -298,6 +298,36 @@
 
 .nav-link.active::after {
   width: 100%;
+  /* GSWA Button Card */
+.gswa-btn {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background: rgba(2,6,23,0.9);
+  border: 1px solid #38bdf8;
+  border-radius: 12px;
+  padding: 20px;
+  transition: 0.3s ease-in-out;
+}
+
+.gswa-btn h3 {
+  color: #38bdf8;
+  margin-bottom: 6px;
+  font-size: 20px;
+}
+
+.gswa-btn p {
+  color: #e5e7eb;
+  font-size: 16px;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.gswa-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+  border-color: #ffffff;
+}
 }
   </style>
   <meta http-equiv="Content-Security-Policy"
@@ -383,8 +413,10 @@
   <div class="grid">
     <div class="card"><h3>Web3 Testing</h3><p>Testing blockchain platforms.</p></div>
     <div class="card"><h3>Community Admin</h3><p>Active Web3 support admin.</p></div>
-    <div class="card"><h3>Office Secretary – GSWA</h3><p>Serving community.</p></div>
-  </div>
+    <a href="gswa.html" class="card gswa-btn">
+  <h3>GSWA</h3>
+  <p>Office Secretary</p>
+    </a>
 </section>
 <section id="community" class="reveal">
   <h2>Growing Community</h2>
