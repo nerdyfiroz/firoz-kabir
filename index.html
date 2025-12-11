@@ -311,9 +311,15 @@
 
   <p><strong>Together we build. Together we grow.</strong></p>
 </section>
-<!-- Visitor Counter -->
-<script type="text/javascript" src="https://counterapi.com/c/yourwebsite"></script>
-Visitors: <span id="counterapi-count"></span>
+Visitors: <span id="visitors"></span>
+
+<script>
+fetch('https://api.countapi.xyz/hit/firozkabir/mathaiblock')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('visitors').innerHTML = data.value;
+  });
+</script>
 <footer>
   © <span id="year"></span> Muhammad Firoz Kabir — All rights reserved.
 </footer>
