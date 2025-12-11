@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Muhammad Firoz Kabir | Math • AI • Blockchain • Marketing</title>
+
+  <meta name="description" content="Muhammad Firoz Kabir is a Mathematics student, Blockchain tester, AI content creator and Digital Marketer from Bangladesh.">
+  <meta name="keywords" content="Muhammad Firoz Kabir, Blockchain tester, Web3, AI content creator, Digital Marketing, Bangladesh">
+  <meta name="author" content="Muhammad Firoz Kabir">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://nerdyfiroz.github.io/firoz-kabir/">
+
+  <meta property="og:title" content="Muhammad Firoz Kabir | Blockchain • AI • Marketing">
+  <meta property="og:description" content="Mathematics student exploring Blockchain, AI & Digital Marketing from Bangladesh.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/nerdyfiroz/firoz-kabir/main/profile.jpg">
+  <meta property="og:url" content="https://nerdyfiroz.github.io/firoz-kabir/">
+  <meta property="og:type" content="website">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.0/css/all.css">
+
+  <style>
+    /* ---------- Base ---------- */
+    :root {
+      --accent: #38bdf8;
+      --bg-dark: #020617;
+      --panel-dark: rgba(2,6,23,0.9);
+      --muted: #9ca3af;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #050816, #020617, #000);
+      color: #e5e7eb;
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+    a { color: var(--accent); text-decoration: none; }
+
+    /* ---------- Background / Symbols ---------- */
+    .math-chain-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(56,189,248,0.08) 0px,
+        rgba(56,189,248,0.08) 2px,
+        transparent 2px,
+        transparent 100px
+      );
+    }
+
+    .symbol-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      font-size: 26px;
+      opacity: 0.12;
+    }
+    .symbol-overlay span {
+      position: absolute;
+      animation: rise 18s linear infinite;
+    }
+    @keyframes rise { from { transform: translateY(110vh); } to { transform: translateY(-10vh); } }
+
+    /* ---------- Header / Navbar ---------- */
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      background: rgba(2,6,23,0.92);
+      border-bottom: 1px solid #1f2937;
+      position: relative;
+      z-index: 5;
+      transition: background 0.4s ease;
+    }
+    header img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+    }
+    .icon-buttons { display:flex; justify-content:center; gap:12px; margin-top:15px; z-index:6; }
+    .btn.icon { width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:18px; border-radius:50%; background:var(--accent); color:#020617; transition:0.3s; }
+    .btn.icon.secondary { background:transparent; border:1px solid var(--accent); color:var(--accent); }
+    .btn.icon:hover { transform:scale(1.1); }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: rgba(2, 6, 23, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #1f2937;
+      z-index: 1000;
+      padding: 10px 0;
+      transition: background 0.4s ease;
+    }
+    .navbar a { margin:0 20px; color:var(--muted); font-weight:500; font-size:15px; transition:0.3s; }
+    .navbar a:hover { color:#fff; }
+    .navbar a.active { color:var(--accent); }
+
+    /* ---------- Sections / Layout ---------- */
+    section {
+      max-width: 900px;
+      margin: auto;
+      padding: 50px 20px;
+      border-bottom: 1px solid #1f2937;
+      position: relative;
+      z-index: 5;
+    }
+    h2 { font-size:22px; color:var(--accent); margin-bottom:15px; }
+
+    .grid { display:grid; gap:20px; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); }
+    .card {
+      background: rgba(2,6,23,0.9);
+      padding:16px;
+      border-radius:12px;
+      border:1px solid #1f2937;
+    }
+    .gswa-btn {
+      display:block; text-align:center; background:rgba(2,6,23,0.9); border:1px solid var(--accent); padding:20px; border-radius:12px; transition:0.3s;
+    }
+    .gswa-btn:hover { transform:scale(1.05); box-shadow:0 0 12px rgba(56,189,248,0.4); }
+
+    footer { text-align:center; padding:20px; font-size:13px; color:var(--muted); }
+
+    /* ---------- Reveal animation base (no conflicting transforms) ---------- */
+    .reveal-left {
+      opacity: 0;
+      /* no transform here — JS will set appropriate starting transform inline */
+      transition: transform 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s cubic-bezier(0.16,1,0.3,1);
+      will-change: transform, opacity;
+    }
+
+    /* ---------- Theme Toggle UI + Light Theme ---------- */
+    .theme-toggle {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      background: #0b1220;
+      color: var(--accent);
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 2000;
+      font-size: 18px;
+      border: 1px solid var(--accent);
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+    .theme-toggle:hover { transform: scale(1.06); }
+
+    .light-mode {
+      background: #f3f4f6;
+      color: #1f2937;
+    }
+    .light-mode header { background: #ffffff; border-bottom:1px solid #ddd; }
+    .light-mode .navbar { background: rgba(255,255,255,0.7); border-bottom:1px solid #ddd; }
+    .light-mode h2 { color: #2563eb; }
+    .light-mode .card, .light-mode .gswa-btn { background:#fff; color:#1f2937; border:1px solid #cbd5e1; }
+    .light-mode .math-chain-bg { opacity:0.12; filter: invert(1) hue-rotate(180deg); }
+    .light-mode .symbol-overlay { opacity:0.08; color:black; }
+  </style>
+</head>
+<body>
+
+  <!-- Theme toggle (keeps your content intact) -->
+  <div class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</div>
+
+  <div class="math-chain-bg"></div>
+
+  <div class="symbol-overlay">
+    <span style="left:5%">∑</span>
+    <span style="left:15%">π</span>
+    <span style="left:25%">∞</span>
+    <span style="left:35%">√</span>
+    <span style="left:45%">θ</span>
+    <span style="left:55%">∫</span>
+    <span style="left:65%">₿</span>
+    <span style="left:75%">Ξ</span>
+    <span style="left:85%">⛓</span>
+    <span style="left:95%">Σ</span>
+  </div>
+
+  <header>
+    <img src="profile.jpg" alt="Muhammad Firoz Kabir">
+    <h1>Muhammad Firoz Kabir</h1>
+    <p>Mathematics • AI • Blockchain • Digital Marketing</p>
+    <p><strong>“Together we build. Together we grow.”</strong></p>
+
+    <div class="icon-buttons">
+      <a class="btn icon" href="mailto:firojfk@outlook.com"><i class="fas fa-envelope"></i></a>
+      <a class="btn icon secondary" href="https://www.facebook.com/nerdyfiroj"><i class="fab fa-facebook-f"></i></a>
+      <a class="btn icon secondary" href="https://www.linkedin.com/in/md-firoz-kabir-65a87b393"><i class="fab fa-linkedin-in"></i></a>
+      <a class="btn icon secondary" href="https://github.com/nerdyfiroz"><i class="fab fa-github"></i></a>
+      <a class="btn icon secondary" href="https://t.me/nerdyfiroz"><i class="fab fa-telegram"></i></a>
+    </div>
+
+    <nav class="navbar">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#community">Community</a>
+    </nav>
+  </header>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p class="reveal-left" data-reveal>
+      I’m Muhammad Firoz Kabir, a lifelong learner who believes that knowledge
+      exists everywhere — in people, technology, and experience. As a student at
+      the University of Rajshahi, I’m shaping my journey at the intersection of
+      mathematics, artificial intelligence, and blockchain, working to transform
+      complex ideas into impactful creations.
+    </p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul class="reveal-left" data-reveal>
+      <li>Advanced Mathematics</li>
+      <li>Artificial Intelligence (AI)</li>
+      <li>Blockchain & Web3</li>
+      <li>Digital Marketing & Growth Strategy</li>
+      <li>Data & Logical Analysis</li>
+      <li>Web3 Builder</li>
+      <li>Social Media Branding</li>
+      <li>Community Building</li>
+      <li>Personal Branding</li>
+    </ul>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Web3 Testing</h3>
+        <p class="reveal-left" data-reveal>Testing blockchain platforms.</p>
+      </div>
+      <div class="card">
+        <h3>Community Admin</h3>
+        <p class="reveal-left" data-reveal>Active Web3 support admin.</p>
+      </div>
+      <a href="gswa.html" class="card gswa-btn">
+        <h3>GSWA</h3>
+        <p class="reveal-left" data-reveal>Office Secretary</p>
+      </a>
+    </div>
+  </section>
+
+  <section id="community">
+    <h2>Growing Community</h2>
+    <p class="reveal-left" data-reveal>
+      In the digital age, a growing community is the true power behind every technology.
+      It transforms ideas into movements, users into builders, and followers into innovators.
+      Through connection, education, and collaboration, a community becomes stronger,
+      smarter, and unstoppable.
+    </p>
+
+    <p class="reveal-left" data-reveal><strong>Together we build. Together we grow.</strong></p>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Muhammad Firoz Kabir — All rights reserved.
+  </footer>
+
+  <script>
+    // ---------- Year ----------
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ---------- Theme Toggle (persist in localStorage) ----------
+    const themeToggle = document.getElementById("themeToggle");
+    const pageBody = document.body;
+    if (localStorage.getItem("theme") === "light") {
+      pageBody.classList.add("light-mode");
+      themeToggle.textContent = "☀️";
+    } else {
+      themeToggle.textContent = "🌙";
+    }
+    themeToggle.addEventListener("click", () => {
+      pageBody.classList.toggle("light-mode");
+      if (pageBody.classList.contains("light-mode")) {
+        themeToggle.textContent = "☀️";
+        localStorage.setItem("theme", "light");
+      } else {
+        themeToggle.textContent = "🌙";
+        localStorage.setItem("theme", "dark");
+      }
+    });
+
+    // ---------- Robust scroll-direction-aware reveal ----------
+    let lastScrollY = window.scrollY || 0;
+    let scrollingDown = true;
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY || 0;
+      scrollingDown = currentY > lastScrollY;
+      lastScrollY = currentY;
+    }, {passive: true});
+
+    // Targets: elements marked data-reveal
+    const revealTargets = document.querySelectorAll('[data-reveal]');
+
+    // IntersectionObserver to detect when element enters viewport
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const el = entry.target;
+        if (entry.isIntersecting) {
+          // If element is already visible (we used a flag), skip re-triggering
+          if (el.dataset.shown === "true") return;
+
+          // Set starting transform based on scroll direction
+          // StartX: -40px (left offset), StartY: 40px if scrolling down (rise up),
+          // or -40px if scrolling up (rise down)
+          const startY = scrollingDown ? 40 : -40;
+          el.style.transition = 'none';
+          el.style.opacity = '0';
+          el.style.transform = `translateX(-40px) translateY(${startY}px)`;
+
+          // Force reflow so transition will run
+          // eslint-disable-next-line no-unused-expressions
+          el.offsetHeight;
+
+          // Now animate to neutral
+          requestAnimationFrame(() => {
+            el.style.transition = 'transform 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s cubic-bezier(0.16,1,0.3,1)';
+            el.style.transform = 'translateX(0px) translateY(0px)';
+            el.style.opacity = '1';
+            el.dataset.shown = "true"; // mark shown so it doesn't re-trigger repeatedly
+          });
+        } else {
+          // If you want the element to be able to re-animate when leaving and re-entering,
+          // comment out the "return" logic above and toggle dataset.shown here.
+          // For now we do nothing on exit to keep text stable once revealed.
+        }
+      });
+    }, {
+      threshold: 0.12
+    });
+
+    revealTargets.forEach(el => io.observe(el));
+
+    // ---------- Optional: allow re-trigger when user scrolls back up quickly
+    // If you prefer the element to re-animate when it leaves viewport and re-enters,
+    // uncomment the following block:
+    /*
+    io.disconnect();
+    const io2 = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const el = entry.target;
+        if (entry.isIntersecting) {
+          const startY = scrollingDown ? 40 : -40;
+          el.style.transition = 'none';
+          el.style.opacity = '0';
+          el.style.transform = `translateX(-40px) translateY(${startY}px)`;
+          el.offsetHeight;
+          requestAnimationFrame(() => {
+            el.style.transition = 'transform 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s cubic-bezier(0.16,1,0.3,1)';
+            el.style.transform = 'translateX(0px) translateY(0px)';
+            el.style.opacity = '1';
+          });
+        } else {
+          // reset so it can animate again
+          el.style.opacity = '0';
+          el.dataset.shown = "false";
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('[data-reveal]').forEach(el => io2.observe(el));
+    */
+
+  </script>
+
+</body>
+</html>
