@@ -1,208 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
   <title>Muhammad Firoz Kabir | Math • AI • Blockchain • Marketing</title>
-
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="Muhammad Firoz Kabir is a Mathematics student, Blockchain tester, AI content creator and Digital Marketer from Bangladesh.">
-  <meta name="keywords" content="Muhammad Firoz Kabir, Blockchain tester, Web3, AI content creator, Digital Marketing, Bangladesh">
-  <meta name="author" content="Muhammad Firoz Kabir">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://nerdyfiroz.github.io/firoz-kabir/">
-
-  <meta property="og:title" content="Muhammad Firoz Kabir | Blockchain • AI • Marketing">
-  <meta property="og:description" content="Mathematics student exploring Blockchain, AI & Digital Marketing from Bangladesh.">
-  <meta property="og:image" content="https://raw.githubusercontent.com/nerdyfiroz/firoz-kabir/main/profile.jpg">
-  <meta property="og:url" content="https://nerdyfiroz.github.io/firoz-kabir/">
-  <meta property="og:type" content="website">
-
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.0/css/all.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ---------- Base ---------- */
-    :root {
+    :root{
       --accent: #38bdf8;
-      --bg-dark: #020617;
-      --panel-dark: rgba(2,6,23,0.9);
+      --accent-2: #7c3aed;
+      --bg-1: #030519;
+      --bg-2: #071233;
+      --panel: rgba(3,6,18,0.65);
       --muted: #9ca3af;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top, #050816, #020617, #000);
-      color: #e5e7eb;
-      line-height: 1.6;
-      overflow-x: hidden;
-      transition: background 0.4s ease, color 0.4s ease;
-    }
-    a { color: var(--accent); text-decoration: none; }
-
-    /* ---------- Background / Symbols ---------- */
-    .math-chain-bg {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background-image: repeating-linear-gradient(
-        45deg,
-        rgba(56,189,248,0.08) 0px,
-        rgba(56,189,248,0.08) 2px,
-        transparent 2px,
-        transparent 100px
-      );
+      --glass: rgba(255,255,255,0.03);
     }
 
-    .symbol-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      font-size: 26px;
-      opacity: 0.12;
-    }
-    .symbol-overlay span {
-      position: absolute;
-      animation: rise 18s linear infinite;
-    }
-    @keyframes rise { from { transform: translateY(110vh); } to { transform: translateY(-10vh); } }
+    /* ----- Page base ----- */
+    html,body{height:100%;margin:0;font-family:"Poppins",Arial,sans-serif;background:linear-gradient(120deg,var(--bg-1),#02102a 50%, #000 100%);color:#e6eef6;overflow-x:hidden; -webkit-font-smoothing:antialiased;}
+    a{color:var(--accent);text-decoration:none}
 
-    /* ---------- Header / Navbar ---------- */
-    header {
-      text-align: center;
-      padding: 40px 20px;
-      background: rgba(2,6,23,0.92);
-      border-bottom: 1px solid #1f2937;
-      position: relative;
-      z-index: 5;
-      transition: background 0.4s ease;
+    /* ----- animated flowing gradient background (dark only) ----- */
+    .bg-flow {
+      position:fixed;inset:0;z-index:0;pointer-events:none;
+      background: linear-gradient(90deg, rgba(7,18,51,0.18), rgba(3,6,18,0.05), rgba(7,60,90,0.06), rgba(7,18,51,0.18));
+      background-size: 300% 300%;
+      animation: bgFlow 18s ease-in-out infinite;
+      mix-blend-mode: screen;
+      filter: blur(30px) saturate(120%);
+      opacity:0.55;
     }
-    header img {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid var(--accent);
-    }
-    .icon-buttons { display:flex; justify-content:center; gap:12px; margin-top:15px; z-index:6; }
-    .btn.icon { width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:18px; border-radius:50%; background:var(--accent); color:#020617; transition:0.3s; }
-    .btn.icon.secondary { background:transparent; border:1px solid var(--accent); color:var(--accent); }
-    .btn.icon:hover { transform:scale(1.1); }
+    @keyframes bgFlow { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
 
-    .navbar {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      background: rgba(2, 6, 23, 0.8);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #1f2937;
-      z-index: 1000;
-      padding: 10px 0;
-      transition: background 0.4s ease;
-    }
-    .navbar a { margin:0 20px; color:var(--muted); font-weight:500; font-size:15px; transition:0.3s; }
-    .navbar a:hover { color:#fff; }
-    .navbar a.active { color:var(--accent); }
+    /* ----- parallax layers (subtle) ----- */
+    .parallax-layer { position: fixed; inset:0; pointer-events:none; z-index:0; }
+    .parallax-layer.layer-1 { background-image: radial-gradient( circle at 10% 20%, rgba(56,189,248,0.02), transparent 15%); opacity:0.6; transform:translateZ(0); }
+    .parallax-layer.layer-2 { background-image: radial-gradient( circle at 85% 80%, rgba(124,58,237,0.02), transparent 12%); opacity:0.45; transform:translateZ(-1px); }
 
-    /* ---------- Sections / Layout ---------- */
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 50px 20px;
-      border-bottom: 1px solid #1f2937;
-      position: relative;
-      z-index: 5;
-    }
-    h2 { font-size:22px; color:var(--accent); margin-bottom:15px; }
-
-    .grid { display:grid; gap:20px; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); }
-    .card {
-      background: rgba(2,6,23,0.9);
-      padding:16px;
-      border-radius:12px;
-      border:1px solid #1f2937;
-    }
-    .gswa-btn {
-      display:block; text-align:center; background:rgba(2,6,23,0.9); border:1px solid var(--accent); padding:20px; border-radius:12px; transition:0.3s;
-    }
-    .gswa-btn:hover { transform:scale(1.05); box-shadow:0 0 12px rgba(56,189,248,0.4); }
-
-    footer { text-align:center; padding:20px; font-size:13px; color:var(--muted); }
-
-    /* ---------- Reveal animation base (no conflicting transforms) ---------- */
-    .reveal-left {
-      opacity: 0;
-      /* no transform here — JS will set appropriate starting transform inline */
-      transition: transform 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s cubic-bezier(0.16,1,0.3,1);
-      will-change: transform, opacity;
+    /* ----- floating symbols (drift + float) ----- */
+    .symbol-overlay{ position:fixed; inset:0; z-index:1; pointer-events:none; font-size:28px; opacity:0.12; mix-blend-mode:screen; }
+    .symbol-overlay span{ position:absolute; animation:floatDrift linear infinite; transform-origin:center; filter:drop-shadow(0 0 8px rgba(56,189,248,0.06)); }
+    @keyframes floatDrift {
+      0%{ transform: translateY(110vh) translateX(0) rotate(0deg); }
+      50%{ transform: translateY(40vh) translateX(40px) rotate(20deg); }
+      100%{ transform: translateY(-10vh) translateX(-20px) rotate(0deg); }
     }
 
-    /* ---------- Theme Toggle UI + Light Theme ---------- */
-    .theme-toggle {
-      position: fixed;
-      top: 18px;
-      right: 18px;
-      background: #0b1220;
-      color: var(--accent);
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 2000;
-      font-size: 18px;
-      border: 1px solid var(--accent);
-      transition: transform 0.2s ease, background 0.3s ease;
-    }
-    .theme-toggle:hover { transform: scale(1.06); }
+    /* ----- header / navbar ----- */
+    header{ position:relative; z-index:3; text-align:center; padding:48px 20px 10px; backdrop-filter: blur(6px); }
+    .logo-small { position:fixed; left:18px; top:18px; z-index:2000; display:flex; gap:10px; align-items:center; padding:8px 12px; border-radius:12px; background:var(--panel); border:1px solid rgba(56,189,248,0.12); }
+    .logo-small img{height:36px;width:36px;border-radius:8px;object-fit:cover; box-shadow:0 6px 20px rgba(0,0,0,0.6); }
+    .logo-small .name{ color:var(--accent); font-weight:600; font-size:14px; letter-spacing:0.3px; }
 
-    .light-mode {
-      background: #f3f4f6;
-      color: #1f2937;
+    header img.profile {
+      height:128px;width:128px;border-radius:50%;object-fit:cover;border:3px solid rgba(56,189,248,0.18);
+      transition:transform 0.45s ease, box-shadow 0.45s ease;
+      box-shadow: 0 10px 30px rgba(3,8,18,0.7), inset 0 0 12px rgba(56,189,248,0.02);
     }
-    .light-mode header { background: #ffffff; border-bottom:1px solid #ddd; }
-    .light-mode .navbar { background: rgba(255,255,255,0.7); border-bottom:1px solid #ddd; }
-    .light-mode h2 { color: #2563eb; }
-    .light-mode .card, .light-mode .gswa-btn { background:#fff; color:#1f2937; border:1px solid #cbd5e1; }
-    .light-mode .math-chain-bg { opacity:0.12; filter: invert(1) hue-rotate(180deg); }
-    .light-mode .symbol-overlay { opacity:0.08; color:black; }
+    /* header profile shine sweep */
+    header img.profile::after{ content:""; display:block; position:absolute; inset:0; border-radius:50%; pointer-events:none; }
+    .shine {
+      position: absolute; left: -40%; top: -40%; width:180%; height:180%; transform: rotate(25deg); pointer-events:none;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 45%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 55%, transparent 100%);
+      mix-blend-mode: overlay; filter: blur(10px);
+      animation: shineMove 3.2s linear infinite;
+      z-index:2;
+      opacity:0.9;
+    }
+    @keyframes shineMove { 0%{ transform:translateX(-100%) rotate(25deg);} 100%{ transform:translateX(100%) rotate(25deg);} }
+
+    header h1{ margin:14px 0 6px; font-size:28px; color:var(--accent); text-shadow:0 6px 18px rgba(56,189,248,0.08); }
+    .tagline { margin:0 0 8px; font-size:15px; color:var(--muted); }
+
+    /* dynamic running tagline (improved: glowing and repeating marquee) */
+    .dynamic-run {
+      display:inline-block; white-space:nowrap; overflow:hidden; position:relative; padding:6px 12px;
+      color:var(--accent); font-weight:500; letter-spacing:0.6px;
+      border-radius:10px; border:1px solid rgba(56,189,248,0.06); background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+      box-shadow: 0 6px 18px rgba(7,24,48,0.45), inset 0 0 30px rgba(56,189,248,0.02);
+    }
+    .dynamic-run .run-inner { display:inline-block; padding-left:6px; animation: runLoop 10s linear infinite; }
+    @keyframes runLoop { 0%{ transform:translateX(-6%);} 50%{ transform:translateX(6%);} 100%{ transform:translateX(-6%);} }
+
+    /* navbar */
+    .navbar{ position:sticky; top:12px; margin:18px auto 0; max-width:900px; z-index:3; backdrop-filter: blur(8px); display:flex; justify-content:center; gap:26px; padding:8px 14px; border-radius:12px; background:linear-gradient(180deg, rgba(2,6,23,0.45), rgba(2,6,23,0.25)); border:1px solid rgba(255,255,255,0.02); }
+    .navbar a{ color:var(--muted); font-weight:500; font-size:15px; padding:6px 10px; position:relative; transition:color .25s; }
+    .navbar a::after{ content:""; position:absolute; left:0; bottom:-6px; height:3px; width:0%; background:linear-gradient(90deg,var(--accent),var(--accent-2)); border-radius:4px; transition:width .35s ease; opacity:0.95; }
+    .navbar a:hover{ color:#fff; }
+    .navbar a:hover::after{ width:100%; }
+
+    /* page container */
+    main{ position:relative; z-index:3; max-width:980px; margin:16px auto 60px; padding:12px 20px; }
+
+    /* sections and cards */
+    section{ margin:36px 0; padding:28px; border-radius:14px; background: linear-gradient(180deg, rgba(3,6,18,0.45), rgba(3,6,18,0.2)); border:1px solid rgba(255,255,255,0.02); box-shadow: 0 8px 30px rgba(2,6,23,0.6); }
+    h2{ margin:0 0 12px; color:var(--accent); font-size:20px; }
+    p, li{ color:#dcecff; font-size:15px; line-height:1.6; }
+
+    .grid{ display:grid; gap:18px; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); }
+    .card{ padding:16px; border-radius:12px; background: linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.45)); border:1px solid rgba(255,255,255,0.02); transition: transform .35s ease, box-shadow .35s ease; }
+
+    /* neon border pulse for premium look */
+    .card::before{
+      content:""; position:absolute; inset:0; border-radius:12px; pointer-events:none;
+      background: linear-gradient(90deg, rgba(56,189,248,0.02), rgba(124,58,237,0.02));
+      transform:scale(1.02); z-index:-1; filter:blur(10px);
+    }
+    .card:hover{ transform:translateY(-8px); box-shadow: 0 20px 40px rgba(7,18,40,0.6), 0 0 40px rgba(56,189,248,0.06); }
+
+    /* GSWA button style (kept) */
+    .gswa-btn{ display:block; text-align:center; padding:18px; border-radius:12px; border:1px solid rgba(56,189,248,0.12); transition: transform .3s ease, box-shadow .3s ease; background: linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.4)); }
+    .gswa-btn:hover{ transform:scale(1.04); box-shadow: 0 12px 30px rgba(56,189,248,0.12); }
+
+    /* social buttons (magnetic hover) */
+    .icon-buttons{ display:flex; justify-content:center; gap:14px; margin-top:16px; }
+    .btn.icon{ width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.04); background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); cursor:pointer; transition: transform .18s ease, box-shadow .25s ease; }
+    .btn.icon:hover{ transform:translateY(-6px) scale(1.08); box-shadow: 0 12px 30px rgba(56,189,248,0.14); }
+
+    /* footer */
+    footer{ text-align:center; color:var(--muted); margin-top:28px; padding:18px 6px; font-size:13px; opacity:0.9; }
+
+    /* tilt base (for JS) */
+    .tilt { transform-style: preserve-3d; transition: transform 0.25s ease, box-shadow 0.25s ease; will-change: transform; }
+
+    /* small responsive tweaks */
+    @media (max-width:720px){
+      header img.profile{ height:96px; width:96px; }
+      .logo-small{ display:none; }
+      .navbar{ gap:12px; padding:8px; margin-top:8px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Theme toggle (keeps your content intact) -->
-  <div class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</div>
+  <!-- Layered animated background elements -->
+  <div class="bg-flow" aria-hidden="true"></div>
+  <div class="parallax-layer layer-1" aria-hidden="true"></div>
+  <div class="parallax-layer layer-2" aria-hidden="true"></div>
 
-  <div class="math-chain-bg"></div>
-
-  <div class="symbol-overlay">
-    <span style="left:5%">∑</span>
-    <span style="left:15%">π</span>
-    <span style="left:25%">∞</span>
-    <span style="left:35%">√</span>
-    <span style="left:45%">θ</span>
-    <span style="left:55%">∫</span>
-    <span style="left:65%">₿</span>
-    <span style="left:75%">Ξ</span>
-    <span style="left:85%">⛓</span>
-    <span style="left:95%">Σ</span>
+  <!-- Floating math & crypto symbols -->
+  <div class="symbol-overlay" aria-hidden="true">
+    <span style="left:5%; top:10%; animation-duration:20s;">∑</span>
+    <span style="left:15%; top:5%; animation-duration:18s;">π</span>
+    <span style="left:25%; top:20%; animation-duration:23s;">∞</span>
+    <span style="left:35%; top:12%; animation-duration:19s;">√</span>
+    <span style="left:45%; top:30%; animation-duration:22s;">θ</span>
+    <span style="left:55%; top:18%; animation-duration:21s;">∫</span>
+    <span style="left:65%; top:8%; animation-duration:24s;">₿</span>
+    <span style="left:75%; top:25%; animation-duration:20s;">Ξ</span>
+    <span style="left:85%; top:15%; animation-duration:26s;">⛓</span>
+    <span style="left:95%; top:28%; animation-duration:28s;">Σ</span>
   </div>
 
-  <header>
-    <img src="profile.jpg" alt="Muhammad Firoz Kabir">
-    <h1>Muhammad Firoz Kabir</h1>
-    <p>Mathematics • AI • Blockchain • Digital Marketing</p>
-    <p><strong>“Together we build. Together we grow.”</strong></p>
+  <!-- small logo top-left -->
+  <div class="logo-small tilt" onclick="location.href='#'">
+    <img src="logo.png" alt="logo">
+    <div class="name">Zayn Kabir</div>
+  </div>
 
-    <div class="icon-buttons">
-      <a class="btn icon" href="mailto:firojfk@outlook.com"><i class="fas fa-envelope"></i></a>
-      <a class="btn icon secondary" href="https://www.facebook.com/nerdyfiroj"><i class="fab fa-facebook-f"></i></a>
-      <a class="btn icon secondary" href="https://www.linkedin.com/in/md-firoz-kabir-65a87b393"><i class="fab fa-linkedin-in"></i></a>
-      <a class="btn icon secondary" href="https://github.com/nerdyfiroz"><i class="fab fa-github"></i></a>
-      <a class="btn icon secondary" href="https://t.me/nerdyfiroz"><i class="fab fa-telegram"></i></a>
+  <!-- main header -->
+  <header>
+    <div style="position:relative; display:inline-block;">
+      <img src="profile.jpg" alt="Muhammad Firoz Kabir" class="profile tilt" />
+      <div class="shine" style="position:absolute; inset:auto;"></div>
     </div>
 
-    <nav class="navbar">
+    <h1>Muhammad Firoz Kabir</h1>
+
+    <div class="tagline">
+      <div class="dynamic-run"><span class="run-inner">Mathematics • AI • Blockchain • Digital Marketing</span></div>
+    </div>
+
+    <p><strong>“Together we build. Together we grow.”</strong></p>
+
+    <div class="icon-buttons" id="socialRow">
+      <a class="btn icon tilt" href="mailto:firojfk@outlook.com" title="Email"><i class="fas fa-envelope"></i></a>
+      <a class="btn icon tilt" href="https://www.facebook.com/nerdyfiroj" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a class="btn icon tilt" href="https://www.linkedin.com/in/md-firoz-kabir-65a87b393" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a class="btn icon tilt" href="https://github.com/nerdyfiroz" title="GitHub"><i class="fab fa-github"></i></a>
+      <a class="btn icon tilt" href="https://t.me/nerdyfiroz" title="Telegram"><i class="fab fa-telegram"></i></a>
+    </div>
+
+    <nav class="navbar" role="navigation" aria-label="Main">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
@@ -210,171 +192,161 @@
     </nav>
   </header>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p class="reveal-left" data-reveal>
-      I’m Muhammad Firoz Kabir, a lifelong learner who believes that knowledge
-      exists everywhere — in people, technology, and experience. As a student at
-      the University of Rajshahi, I’m shaping my journey at the intersection of
-      mathematics, artificial intelligence, and blockchain, working to transform
-      complex ideas into impactful creations.
-    </p>
-  </section>
+  <!-- content -->
+  <main id="mainContent">
+    <section id="about" class="tilt" aria-labelledby="aboutTitle">
+      <h2 id="aboutTitle">About Me</h2>
+      <p>I’m Muhammad Firoz Kabir, a lifelong learner who believes that knowledge
+        exists everywhere — in people, technology, and experience. As a student at
+        the University of Rajshahi, I’m shaping my journey at the intersection of
+        mathematics, artificial intelligence, and blockchain, working to transform
+        complex ideas into impactful creations.</p>
+    </section>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul class="reveal-left" data-reveal>
-      <li>Advanced Mathematics</li>
-      <li>Artificial Intelligence (AI)</li>
-      <li>Blockchain & Web3</li>
-      <li>Digital Marketing & Growth Strategy</li>
-      <li>Data & Logical Analysis</li>
-      <li>Web3 Builder</li>
-      <li>Social Media Branding</li>
-      <li>Community Building</li>
-      <li>Personal Branding</li>
-    </ul>
-  </section>
+    <section id="skills" class="tilt" aria-labelledby="skillsTitle">
+      <h2 id="skillsTitle">Skills</h2>
+      <ul>
+        <li>Advanced Mathematics</li>
+        <li>Artificial Intelligence (AI)</li>
+        <li>Blockchain & Web3</li>
+        <li>Digital Marketing & Growth Strategy</li>
+        <li>Data & Logical Analysis</li>
+        <li>Web3 Builder</li>
+        <li>Social Media Branding</li>
+        <li>Community Building</li>
+        <li>Personal Branding</li>
+      </ul>
+    </section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Web3 Testing</h3>
-        <p class="reveal-left" data-reveal>Testing blockchain platforms.</p>
+    <section id="projects" class="tilt" aria-labelledby="projectsTitle">
+      <h2 id="projectsTitle">Projects</h2>
+
+      <div class="grid">
+        <div class="card tilt">
+          <h3>Web3 Testing</h3>
+          <p>Testing blockchain platforms.</p>
+        </div>
+
+        <div class="card tilt">
+          <h3>Community Admin</h3>
+          <p>Active Web3 support admin.</p>
+        </div>
+
+        <a href="gswa.html" class="card gswa-btn tilt" aria-label="GSWA link">
+          <h3>GSWA</h3>
+          <p>Office Secretary</p>
+        </a>
       </div>
-      <div class="card">
-        <h3>Community Admin</h3>
-        <p class="reveal-left" data-reveal>Active Web3 support admin.</p>
-      </div>
-      <a href="gswa.html" class="card gswa-btn">
-        <h3>GSWA</h3>
-        <p class="reveal-left" data-reveal>Office Secretary</p>
-      </a>
-    </div>
-  </section>
+    </section>
 
-  <section id="community">
-    <h2>Growing Community</h2>
-    <p class="reveal-left" data-reveal>
-      In the digital age, a growing community is the true power behind every technology.
-      It transforms ideas into movements, users into builders, and followers into innovators.
-      Through connection, education, and collaboration, a community becomes stronger,
-      smarter, and unstoppable.
-    </p>
-
-    <p class="reveal-left" data-reveal><strong>Together we build. Together we grow.</strong></p>
-  </section>
+    <section id="community" class="tilt" aria-labelledby="communityTitle">
+      <h2 id="communityTitle">Growing Community</h2>
+      <p>
+        In the digital age, a growing community is the true power behind every technology.
+        It transforms ideas into movements, users into builders, and followers into innovators.
+        Through connection, education, and collaboration, a community becomes stronger,
+        smarter, and unstoppable.
+      </p>
+      <p><strong>Together we build. Together we grow.</strong></p>
+    </section>
+  </main>
 
   <footer>
     © <span id="year"></span> Muhammad Firoz Kabir — All rights reserved.
   </footer>
 
+  <!-- scripts: parallax, tilt, magnetic buttons, reveal -->
   <script>
-    // ---------- Year ----------
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ---------- Theme Toggle (persist in localStorage) ----------
-    const themeToggle = document.getElementById("themeToggle");
-    const pageBody = document.body;
-    if (localStorage.getItem("theme") === "light") {
-      pageBody.classList.add("light-mode");
-      themeToggle.textContent = "☀️";
-    } else {
-      themeToggle.textContent = "🌙";
-    }
-    themeToggle.addEventListener("click", () => {
-      pageBody.classList.toggle("light-mode");
-      if (pageBody.classList.contains("light-mode")) {
-        themeToggle.textContent = "☀️";
-        localStorage.setItem("theme", "light");
-      } else {
-        themeToggle.textContent = "🌙";
-        localStorage.setItem("theme", "dark");
-      }
-    });
+    /* --- Parallax subtle scroll movement for layers --- */
+    (function(){
+      const layer1 = document.querySelector('.parallax-layer.layer-1');
+      const layer2 = document.querySelector('.parallax-layer.layer-2');
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if(layer1) layer1.style.transform = `translateY(${y * 0.03}px)`;
+        if(layer2) layer2.style.transform = `translateY(${y * 0.06}px)`;
+      }, {passive:true});
+    })();
 
-    // ---------- Robust scroll-direction-aware reveal ----------
-    let lastScrollY = window.scrollY || 0;
-    let scrollingDown = true;
-
-    window.addEventListener('scroll', () => {
-      const currentY = window.scrollY || 0;
-      scrollingDown = currentY > lastScrollY;
-      lastScrollY = currentY;
-    }, {passive: true});
-
-    // Targets: elements marked data-reveal
-    const revealTargets = document.querySelectorAll('[data-reveal]');
-
-    // IntersectionObserver to detect when element enters viewport
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const el = entry.target;
-        if (entry.isIntersecting) {
-          // If element is already visible (we used a flag), skip re-triggering
-          if (el.dataset.shown === "true") return;
-
-          // Set starting transform based on scroll direction
-          // StartX: -40px (left offset), StartY: 40px if scrolling down (rise up),
-          // or -40px if scrolling up (rise down)
-          const startY = scrollingDown ? 40 : -40;
-          el.style.transition = 'none';
-          el.style.opacity = '0';
-          el.style.transform = `translateX(-40px) translateY(${startY}px)`;
-
-          // Force reflow so transition will run
-          // eslint-disable-next-line no-unused-expressions
-          el.offsetHeight;
-
-          // Now animate to neutral
-          requestAnimationFrame(() => {
-            el.style.transition = 'transform 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s cubic-bezier(0.16,1,0.3,1)';
-            el.style.transform = 'translateX(0px) translateY(0px)';
-            el.style.opacity = '1';
-            el.dataset.shown = "true"; // mark shown so it doesn't re-trigger repeatedly
-          });
-        } else {
-          // If you want the element to be able to re-animate when leaving and re-entering,
-          // comment out the "return" logic above and toggle dataset.shown here.
-          // For now we do nothing on exit to keep text stable once revealed.
-        }
+    /* --- Magnetic buttons: small follow effect --- */
+    (function(){
+      const buttons = document.querySelectorAll('.btn.icon');
+      buttons.forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const r = btn.getBoundingClientRect();
+          const offsetX = (e.clientX - (r.left + r.width / 2));
+          const offsetY = (e.clientY - (r.top + r.height / 2));
+          btn.style.transform = `translate(${offsetX * 0.08}px, ${offsetY * 0.06}px) scale(1.06)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = '';
+        });
       });
-    }, {
-      threshold: 0.12
-    });
+    })();
 
-    revealTargets.forEach(el => io.observe(el));
-
-    // ---------- Optional: allow re-trigger when user scrolls back up quickly
-    // If you prefer the element to re-animate when it leaves viewport and re-enters,
-    // uncomment the following block:
-    /*
-    io.disconnect();
-    const io2 = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const el = entry.target;
-        if (entry.isIntersecting) {
-          const startY = scrollingDown ? 40 : -40;
-          el.style.transition = 'none';
-          el.style.opacity = '0';
-          el.style.transform = `translateX(-40px) translateY(${startY}px)`;
-          el.offsetHeight;
-          requestAnimationFrame(() => {
-            el.style.transition = 'transform 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s cubic-bezier(0.16,1,0.3,1)';
-            el.style.transform = 'translateX(0px) translateY(0px)';
-            el.style.opacity = '1';
-          });
-        } else {
-          // reset so it can animate again
-          el.style.opacity = '0';
-          el.dataset.shown = "false";
-        }
+    /* --- 3D tilt for .tilt elements (cursor based) --- */
+    (function(){
+      const tilts = document.querySelectorAll('.tilt');
+      tilts.forEach(el => {
+        el.addEventListener('mousemove', e => {
+          const r = el.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width;
+          const py = (e.clientY - r.top) / r.height;
+          const rotateY = (px - 0.5) * 14; // -7 to 7
+          const rotateX = (0.5 - py) * 10; // -5 to 5
+          el.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        });
+        el.addEventListener('mouseleave', () => {
+          el.style.transform = '';
+        });
       });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('[data-reveal]').forEach(el => io2.observe(el));
-    */
+    })();
 
+    /* --- floating symbols slight randomization (to avoid uniform pattern) --- */
+    (function(){
+      const spans = document.querySelectorAll('.symbol-overlay span');
+      spans.forEach((s, idx) => {
+        const dur = (+s.style.animationDuration.replace('s','')) || (18 + (idx%5));
+        s.style.animationDuration = (dur + (idx%3)) + 's';
+        s.style.opacity = 0.10 + (idx%4)*0.02;
+        // random horizontal jitter via CSS translateX in keyframe will handle drift
+      });
+    })();
+
+    /* --- reveal on scroll (preserves original semantics) --- */
+    (function(){
+      const reveals = document.querySelectorAll('section, .card, header h1, .tagline');
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.style.transition = 'opacity 0.9s ease, transform 0.9s cubic-bezier(0.16,1,0.3,1)';
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0px) translateX(0px)';
+            obs.unobserve(entry.target);
+          } else {
+            // initial state
+            entry.target.style.opacity = '0';
+            entry.target.style.transform = 'translateY(10px) translateX(-10px)';
+          }
+        });
+      }, {threshold:0.12});
+      reveals.forEach(r => obs.observe(r));
+    })();
+
+    /* --- subtle auto parallax for background movement based on mouse (depth illusion) --- */
+    (function(){
+      const flow = document.querySelector('.bg-flow');
+      window.addEventListener('mousemove', e => {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        const nx = (e.clientX / w - 0.5) * 20; // -10..10
+        const ny = (e.clientY / h - 0.5) * 10; // -5..5
+        if(flow) flow.style.transform = `translate(${nx}px, ${ny}px)`;
+      });
+    })();
   </script>
 
 </body>
