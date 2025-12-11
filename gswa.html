@@ -5,262 +5,377 @@
   <title>Gangachara Students Welfare Association (GSWA)</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#020617">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.0/css/all.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top, #050816, #020617, #000);
-      color: #e5e7eb;
-      line-height: 1.6;
+    :root{
+      --accent:#38bdf8;
+      --accent2:#7c3aed;
+      --bg1:#030519;
+      --bg2:#071233;
+      --glass: rgba(255,255,255,0.04);
+      --muted:#9ca3af;
     }
 
-    /* Navbar */
+    /* ---------- Page base ---------- */
+    html,body{height:100%;margin:0;font-family:"Poppins",Arial,sans-serif;background:linear-gradient(120deg,var(--bg1),#020617 60%, #000 100%);color:#eaf2ff; -webkit-font-smoothing:antialiased;}
+    a{color:var(--accent); text-decoration:none}
+    img{max-width:100%; display:block; }
+
+    /* ---------- Animated flowing background (subtle) ---------- */
+    .bg-flow { position:fixed; inset:0; z-index:0; pointer-events:none; background: linear-gradient(90deg, rgba(7,18,51,0.14), rgba(3,6,18,0.02), rgba(7,60,90,0.04)); background-size:300% 300%; animation:bgFlow 20s linear infinite; filter: blur(28px) saturate(110%); opacity:0.55; }
+    @keyframes bgFlow { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
+
+    /* ---------- Parallax decorative layers ---------- */
+    .parallax { position:fixed; inset:0; z-index:0; pointer-events:none; }
+    .parallax .dot { position:absolute; width:260px; height:260px; border-radius:50%; background: radial-gradient(circle, rgba(56,189,248,0.02), transparent 30%); filter: blur(40px); opacity:0.7; }
+
+    /* ---------- Floating symbols ---------- */
+    .symbol-overlay { position:fixed; inset:0; z-index:1; pointer-events:none; font-size:26px; opacity:0.10; mix-blend-mode:screen;}
+    .symbol-overlay span { position:absolute; animation:floatDrift linear infinite; transform-origin:center; filter:drop-shadow(0 0 10px rgba(56,189,248,0.05)); }
+    @keyframes floatDrift { 0%{transform:translateY(120vh) translateX(0) rotate(0deg);}50%{transform:translateY(40vh) translateX(40px) rotate(25deg);}100%{transform:translateY(-10vh) translateX(-20px) rotate(0deg);} }
+
+    /* ---------- Navbar (glass style) ---------- */
     .navbar {
-      background: rgba(2,6,23,0.92);
-      padding: 15px;
-      text-align: center;
-      border-bottom: 1px solid #1f2937;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: sticky; top: 14px; z-index: 40; margin: 18px auto 0; max-width: 980px;
+      display:flex; justify-content:center; gap:24px; padding:10px 14px; border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.03); backdrop-filter: blur(8px);
+      box-shadow: 0 6px 24px rgba(2,6,23,0.55);
+    }
+    .navbar a{ color:var(--muted); font-weight:500; font-size:15px; position:relative; padding:6px 8px; }
+    .navbar a::after{ content:""; position:absolute; left:0; bottom:-8px; height:3px; width:0%; background:linear-gradient(90deg,var(--accent),var(--accent2)); border-radius:6px; transition:width .35s ease; }
+    .navbar a:hover{ color:#fff; }
+    .navbar a:hover::after{ width:100%; }
+
+    /* ---------- Elegant glass hero banner ---------- */
+    .hero {
+      max-width:980px; margin:36px auto 6px; position:relative; z-index:10; padding:28px; border-radius:14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 14px 40px rgba(2,6,23,0.6);
+      display:flex; gap:20px; align-items:center;
+      backdrop-filter: blur(8px);
     }
 
-    .navbar a {
-      margin: 0 15px;
-      color: #38bdf8;
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.3s;
-    }
+    .hero .left { flex:0 0 150px; display:flex; align-items:center; justify-content:center; position:relative; }
+    .hero .left img { width:140px; height:140px; border-radius:16px; object-fit:cover; border:1px solid rgba(255,255,255,0.03); box-shadow: 0 12px 34px rgba(2,6,23,0.6), inset 0 0 16px rgba(56,189,248,0.02); transition:transform .45s ease, box-shadow .45s ease; }
+    .hero .left .logo-frame { padding:10px; border-radius:14px; background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); border:1px solid rgba(255,255,255,0.02); }
 
-    .navbar a:hover {
-      color: #fff;
-    }
+    .hero .meta { flex:1; padding-right:10px; }
+    .hero h1 { margin:0; font-size:26px; color:var(--accent); letter-spacing:0.2px; }
+    .hero p.lead { margin:8px 0 0; color:#cfeafe; font-size:15px; }
+    .hero .motto { margin-top:12px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
 
-    /* GSWA Logo */
-    .logo-box {
-      text-align: center;
-      margin-top: 25px;
-      margin-bottom: -10px;
-      animation: logoReveal 1.4s ease forwards;
-    }
+    /* motto typing (auto-typing subtle) */
+    .motto .type { color:var(--muted); font-weight:500; font-size:14px; }
+    .motto .type strong { color:var(--accent); font-weight:600; }
 
-    .gswa-logo {
-      width: 160px;
-      height: auto;
-      opacity: 0;
-      transform: translateY(20px) scale(0.95);
-      animation: logoReveal 1.4s ease forwards;
-    }
+    /* dynamic running tagline (kept but inside glass style) */
+    .dynamic-run { display:inline-block; padding:8px 12px; border-radius:10px; border:1px solid rgba(56,189,248,0.06); background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); box-shadow: 0 8px 24px rgba(3,8,18,0.4); color:var(--accent); font-weight:600; }
+    .dynamic-run .run-inner{ display:inline-block; animation: runLoop 10s linear infinite; }
+    @keyframes runLoop{ 0%{transform:translateX(-6%)}50%{transform:translateX(6%)}100%{transform:translateX(-6%)} }
 
-    @keyframes logoReveal {
-      0% {
-        opacity: 0;
-        transform: translateY(25px) scale(0.92);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
+    /* ---------- Content container ---------- */
+    main{ max-width:980px; margin:18px auto 48px; padding:6px 18px 28px; z-index:10; position:relative; }
 
-    header {
-      text-align: center;
-      padding: 20px 20px 10px;
-    }
+    section { margin:32px 0; padding:28px; border-radius:12px; background: linear-gradient(180deg, rgba(3,6,18,0.45), rgba(3,6,18,0.28)); border:1px solid rgba(255,255,255,0.03); box-shadow:0 10px 30px rgba(2,6,23,0.55); backdrop-filter:blur(6px); }
+    h2{ color:var(--accent); margin:0 0 12px; }
+    p, li{ color:#dbeffe; font-size:15px; line-height:1.6; }
 
-    h1 {
-      font-size: 28px;
-      margin-bottom: 5px;
-      color: #38bdf8;
-    }
+    /* desc lines (preserved words) */
+    .desc-line { font-size:18px; color:#eaf2ff; margin-bottom:8px; opacity:0; transform:translateY(10px); animation:descIn 1s ease forwards; }
+    .desc-line:nth-child(1){ animation-delay:.25s } .desc-line:nth-child(2){ animation-delay:.65s } .desc-line:nth-child(3){ animation-delay:1.05s } .desc-line:nth-child(4){ animation-delay:1.45s }
+    @keyframes descIn { to{ opacity:1; transform:translateY(0);} }
 
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
-    }
+    /* event cards (3D magnetic + hover) */
+    .event-card { display:flex; gap:14px; border-radius:12px; overflow:hidden; transition:transform .28s ease, box-shadow .28s ease; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.004)); border:1px solid rgba(255,255,255,0.03); }
+    .event-card:hover{ transform:translateY(-10px) scale(1.01); box-shadow:0 22px 46px rgba(2,6,23,0.7), 0 0 30px rgba(56,189,248,0.08); }
+    .event-img { width:200px; height:150px; object-fit:cover; border-right:1px solid rgba(255,255,255,0.03); }
+    .event-text{ padding:12px 14px; }
+    .event-text h3{ margin:0 0 6px; color:var(--accent); }
+    .event-text p{ margin:0; color:#dbeffe; }
 
-    h2 {
-      color: #38bdf8;
-      margin-bottom: 15px;
-    }
+    /* photo gallery with lightbox */
+    .photo-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
+    .photo-card { border-radius:10px; overflow:hidden; transition: transform .28s ease, box-shadow .28s ease; border:1px solid rgba(255,255,255,0.02); background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); }
+    .photo-card img { width:100%; height:180px; object-fit:cover; display:block; }
+    .photo-card:hover{ transform:scale(1.03); box-shadow:0 18px 36px rgba(2,6,23,0.65); }
 
-    /* Line-by-line reveal description */
-    .desc-line {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: revealLine 1.2s ease forwards;
-      font-size: 18px;
-      margin-bottom: 6px;
-      color: #e5e7eb;
-    }
+    /* animated divider */
+    .divider { height:2px; margin:20px 0; background:linear-gradient(90deg, transparent, rgba(56,189,248,0.12), transparent); border-radius:4px; }
 
-    .desc-line:nth-child(1) { animation-delay: 0.3s; }
-    .desc-line:nth-child(2) { animation-delay: 0.8s; }
-    .desc-line:nth-child(3) { animation-delay: 1.3s; }
-    .desc-line:nth-child(4) { animation-delay: 1.8s; }
+    /* footer glass */
+    footer { text-align:center; padding:18px; color:var(--muted); margin-top:26px; }
 
-    @keyframes revealLine {
-      0% { opacity: 0; transform: translateY(25px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+    /* tilt helper */
+    .tilt { transform-style:preserve-3d; transition: transform .25s ease, box-shadow .25s ease; will-change: transform; }
 
-    /* Event cards */
-    .event-card {
-      display: flex;
-      background: rgba(2,6,23,0.9);
-      border: 1px solid #1f2937;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 25px;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: eventReveal 1.1s ease forwards;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+    /* lightbox modal */
+    .lb-back { position:fixed; inset:0; background:rgba(0,0,0,0.75); display:flex; align-items:center; justify-content:center; z-index:9999; opacity:0; pointer-events:none; transition:opacity .25s ease; }
+    .lb-back.show{ opacity:1; pointer-events:auto; }
+    .lb-img { max-width:92%; max-height:92%; border-radius:10px; box-shadow:0 20px 60px rgba(2,6,23,0.8); }
 
-    .event-card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(56,189,248,0.2);
-    }
-
-    .event-card:nth-child(1) { animation-delay: 0.3s; }
-    .event-card:nth-child(2) { animation-delay: 0.7s; }
-    .event-card:nth-child(3) { animation-delay: 1.1s; }
-
-    @keyframes eventReveal {
-      0% { opacity: 0; transform: translateY(40px); filter: blur(6px); }
-      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
-    }
-
-    .event-img {
-      width: 180px;
-      height: 140px;
-      object-fit: cover;
-      border-right: 1px solid #1f2937;
-    }
-
-    .event-text {
-      padding: 15px;
-    }
-
-    .event-text h3 {
-      color: #38bdf8;
-      margin-bottom: 5px;
-    }
-
-    .event-text p {
-      color: #cbd5e1;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    /* Photo gallery */
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .photo-card img {
-      width: 100%;
-      border-radius: 10px;
-      border: 2px solid #38bdf8;
-      box-shadow: 0 0 15px rgba(56,189,248,0.15);
-      transition: 0.3s;
-    }
-
-    .photo-card img:hover {
-      transform: scale(1.03);
-    }
-
-    footer {
-      text-align: center;
-      padding: 15px;
-      color: #9ca3af;
-      border-top: 1px solid #1f2937;
-      margin-top: 30px;
+    @media (max-width:720px){
+      .hero{ flex-direction:column; align-items:center; padding:18px; gap:12px; }
+      .hero .left{ flex:0 0 auto; }
+      header h1{ font-size:22px; }
+      .navbar{ gap:12px; padding:8px; }
     }
   </style>
 </head>
-
 <body>
 
-<!-- Navbar -->
-<div class="navbar">
-  <a href="https://nerdyfiroz.github.io/firoz-kabir/">Home</a>
-  <a href="#description">About GSWA</a>
-  <a href="#events">Events</a>
-  <a href="#photos">Photos</a>
-</div>
+  <!-- animated backgrounds & layers -->
+  <div class="bg-flow" aria-hidden="true"></div>
+  <div class="parallax" aria-hidden="true"><div class="dot" style="left:8%;top:12%"></div><div class="dot" style="left:78%;top:68%;width:320px;height:320px"></div></div>
 
-<!-- GSWA Logo -->
-<div class="logo-box">
-  <img src="gswa-logo.png" alt="GSWA Logo" class="gswa-logo">
-</div>
+  <!-- floating math/crypto symbols -->
+  <div class="symbol-overlay" aria-hidden="true">
+    <span style="left:5%; top:12%; animation-duration:20s;">∑</span>
+    <span style="left:16%; top:6%; animation-duration:18s;">π</span>
+    <span style="left:26%; top:22%; animation-duration:24s;">∞</span>
+    <span style="left:36%; top:10%; animation-duration:20s;">√</span>
+    <span style="left:46%; top:30%; animation-duration:22s;">θ</span>
+    <span style="left:56%; top:18%; animation-duration:26s;">₿</span>
+    <span style="left:66%; top:8%; animation-duration:21s;">Ξ</span>
+    <span style="left:76%; top:25%; animation-duration:28s;">⛓</span>
+    <span style="left:86%; top:16%; animation-duration:19s;">Σ</span>
+    <span style="left:94%; top:28%; animation-duration:23s;">∫</span>
+  </div>
 
-<header>
-  <h1>GSWA — Projects & Events</h1>
-  <p>Showcasing activities, contributions & community development</p>
-</header>
+  <!-- navbar -->
+  <div class="navbar tilt" role="navigation" aria-label="Main">
+    <a href="https://nerdyfiroz.github.io/firoz-kabir/">Home</a>
+    <a href="#description">About GSWA</a>
+    <a href="#events">Events</a>
+    <a href="#photos">Photos</a>
+  </div>
 
-<!-- Organization Description -->
-<section id="description" style="text-align:center;">
-  <div class="desc-line">The premier student development association in Gangachara.</div>
-  <div class="desc-line">We are committed to fostering a powerful, supportive community</div>
-  <div class="desc-line">and delivering comprehensive welfare programs</div>
-  <div class="desc-line">that ensure student success and well-being.</div>
-</section>
+  <!-- elegant glass hero -->
+  <div class="hero tilt" role="banner" aria-labelledby="heroTitle">
+    <div class="left">
+      <div class="logo-frame">
+        <img src="gswa-logo.png" alt="GSWA Logo">
+      </div>
+    </div>
 
-<!-- Events Section -->
-<section id="events">
-  <h2>📌 GSWA Events</h2>
+    <div class="meta">
+      <h1 id="heroTitle">GSWA — Projects & Events</h1>
+      <p class="lead">Showcasing activities, contributions & community development</p>
 
-  <div class="event-card">
-    <img src="event1.jpg" class="event-img" alt="Leadership Meetup">
-    <div class="event-text">
-      <h3>Leadership Meetup 2024</h3>
-      <p>A gathering of GSWA members discussing ideas, planning community growth, and future contribution.</p>
+      <div class="motto">
+        <div class="dynamic-run"><span class="run-inner">The premier student development association in Gangachara.</span></div>
+        <div class="type" style="margin-left:8px;"><span class="type-static">Motto:</span> <strong id="typedTarget"></strong></div>
+      </div>
     </div>
   </div>
 
-  <div class="event-card">
-    <img src="event2.jpg" class="event-img" alt="Blockchain Awareness">
-    <div class="event-text">
-      <h3>Blockchain Awareness Program</h3>
-      <p>Introduced blockchain fundamentals to new members to help them enter Web3 with confidence.</p>
-    </div>
+  <!-- divider -->
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- main content -->
+  <main id="mainContent" role="main">
+
+    <!-- Organization Description (words preserved exactly) -->
+    <section id="description" class="tilt" aria-labelledby="descTitle">
+      <h2 id="descTitle">About GSWA</h2>
+      <div class="desc-line">The premier student development association in Gangachara.</div>
+      <div class="desc-line">We are committed to fostering a powerful, supportive community</div>
+      <div class="desc-line">and delivering comprehensive welfare programs</div>
+      <div class="desc-line">that ensure student success and well-being.</div>
+    </section>
+
+    <!-- events -->
+    <section id="events" class="tilt" aria-labelledby="eventsTitle">
+      <h2 id="eventsTitle">📌 GSWA Events</h2>
+
+      <div class="event-card tilt" role="article">
+        <img src="event1.jpg" class="event-img" alt="Leadership Meetup">
+        <div class="event-text">
+          <h3>Leadership Meetup 2024</h3>
+          <p>A gathering of GSWA members discussing ideas, planning community growth, and future contribution.</p>
+        </div>
+      </div>
+
+      <div class="event-card tilt" role="article">
+        <img src="event2.jpg" class="event-img" alt="Blockchain Awareness">
+        <div class="event-text">
+          <h3>Blockchain Awareness Program</h3>
+          <p>Introduced blockchain fundamentals to new members to help them enter Web3 with confidence.</p>
+        </div>
+      </div>
+
+      <div class="event-card tilt" role="article">
+        <img src="event3.jpg" class="event-img" alt="Community Workshop">
+        <div class="event-text">
+          <h3>Community Building Workshop</h3>
+          <p>Taught strategies for building, managing, and sustaining a strong digital community.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- gallery -->
+    <section id="photos" class="tilt" aria-labelledby="photosTitle">
+      <h2 id="photosTitle">📸 GSWA Photo Gallery</h2>
+
+      <div class="photo-grid">
+        <div class="photo-card tilt"><img src="photo1.jpg" alt="Event Photo 1" loading="lazy" data-large="photo1.jpg"></div>
+        <div class="photo-card tilt"><img src="photo2.jpg" alt="Event Photo 2" loading="lazy" data-large="photo2.jpg"></div>
+        <div class="photo-card tilt"><img src="photo3.jpg" alt="Event Photo 3" loading="lazy" data-large="photo3.jpg"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer role="contentinfo">
+    © 2025 GSWA — Page by Muhammad Firoz Kabir
+  </footer>
+
+  <!-- Lightbox markup -->
+  <div id="lightbox" class="lb-back" aria-hidden="true" role="dialog" aria-label="Image preview">
+    <img src="" alt="Preview" class="lb-img" id="lbImage">
   </div>
 
-  <div class="event-card">
-    <img src="event3.jpg" class="event-img" alt="Community Workshop">
-    <div class="event-text">
-      <h3>Community Building Workshop</h3>
-      <p>Taught strategies for building, managing, and sustaining a strong digital community.</p>
-    </div>
-  </div>
-</section>
+  <!-- Scripts: tilt, magnetic, lightbox, typing, anchors -->
+  <script>
+    // small helpers
+    const $ = s => document.querySelector(s);
+    const $$ = s => document.querySelectorAll(s);
 
-<!-- Photo Gallery -->
-<section id="photos">
-  <h2>📸 GSWA Photo Gallery</h2>
+    // parallax subtle movement on scroll
+    (function(){
+      const dots = document.querySelectorAll('.parallax .dot');
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        dots.forEach((d, i) => d.style.transform = `translateY(${y * (0.02 + (i*0.01))}px)`);
+      }, {passive:true});
+    })();
 
-  <div class="photo-grid">
-    <div class="photo-card"><img src="photo1.jpg" alt="Event Photo 1"></div>
-    <div class="photo-card"><img src="photo2.jpg" alt="Event Photo 2"></div>
-    <div class="photo-card"><img src="photo3.jpg" alt="Event Photo 3"></div>
-  </div>
-</section>
+    // magnetic tilt for .tilt elements (cursor follow)
+    (function(){
+      const items = document.querySelectorAll('.tilt');
+      items.forEach(el => {
+        el.addEventListener('mousemove', e => {
+          const r = el.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width;
+          const py = (e.clientY - r.top) / r.height;
+          const rotateY = (px - 0.5) * 10; // milder tilt for elegance
+          const rotateX = (0.5 - py) * 7;
+          el.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(0)`;
+        });
+        el.addEventListener('mouseleave', () => el.style.transform = '');
+      });
+    })();
 
-<footer>
-  © 2025 GSWA — Page by Muhammad Firoz Kabir
-</footer>
+    // magnetic hover for event cards (slight translate)
+    (function(){
+      const cards = document.querySelectorAll('.event-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          const offsetX = (e.clientX - (r.left + r.width/2));
+          const offsetY = (e.clientY - (r.top + r.height/2));
+          card.style.transform = `translate3d(${offsetX*0.02}px, ${offsetY*0.02 - 6}px, 0) scale(1.01)`;
+        });
+        card.addEventListener('mouseleave', () => card.style.transform = '');
+      });
+    })();
 
-</body>
-</html>
-</section>
+    // reveal description lines (they already animate via CSS; this ensures they play on load)
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.desc-line').forEach((el,i) => {
+        el.style.animationPlayState = 'running';
+      });
+    });
+
+    // gallery lightbox
+    (function(){
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lbImage');
+      document.querySelectorAll('.photo-card img').forEach(img => {
+        img.addEventListener('click', () => {
+          lbImg.src = img.dataset.large || img.src;
+          lb.classList.add('show');
+          lb.setAttribute('aria-hidden', 'false');
+        });
+      });
+      lb.addEventListener('click', (e) => {
+        if(e.target === lb || e.target === lbImg) {
+          lb.classList.remove('show');
+          lb.setAttribute('aria-hidden','true');
+          lbImg.src = '';
+        }
+      });
+      // escape key to close
+      window.addEventListener('keydown', e => { if(e.key === 'Escape') { lb.classList.remove('show'); lb.setAttribute('aria-hidden','true'); lbImg.src=''; }});
+    })();
+
+    // smooth anchor snapping for a nicer feel
+    (function(){
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const href = a.getAttribute('href');
+          if(href === '#') return;
+          const target = document.querySelector(href);
+          if(target) {
+            e.preventDefault();
+            target.scrollIntoView({behavior:'smooth', block:'start'});
+            history.replaceState(null, '', href);
+          }
+        });
+      });
+    })();
+
+    // subtle auto-typing for motto (non-intrusive)
+    (function(){
+      const target = document.getElementById('typedTarget');
+      if(!target) return;
+      const phrases = [
+        'The premier student development association in Gangachara.',
+        'We are committed to fostering a powerful, supportive community.',
+        'Delivering comprehensive welfare programs for student success.'
+      ];
+      let pi = 0, char = 0, forward = true;
+      function tick() {
+        const text = phrases[pi];
+        if(forward) {
+          char++;
+          target.textContent = text.slice(0, char);
+          if(char >= text.length) { forward = false; setTimeout(tick, 1200); return; }
+        } else {
+          char--;
+          target.textContent = text.slice(0, char);
+          if(char === 0) { forward = true; pi = (pi + 1) % phrases.length; setTimeout(tick, 400); return; }
+        }
+        setTimeout(tick, forward ? 40 : 20);
+      }
+      tick();
+    })();
+
+    // accessibility: reduce motion if user prefers
+    (function(){
+      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if(mq.matches){
+        document.querySelectorAll('.bg-flow, .symbol-overlay span').forEach(el=>{
+          el.style.animation = 'none';
+        });
+        document.querySelectorAll('.tilt').forEach(el => { el.removeEventListener && el.removeEventListener('mousemove', ()=>{}); });
+      }
+    })();
+  </script>
+
+  <style>
+    /* inline small runtime styles used by lightbox */
+    .lb-back{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.8); z-index:9999; opacity:0; pointer-events:none; transition:opacity .22s ease; }
+    .lb-back.show{ opacity:1; pointer-events:auto; }
+    .lb-img{ max-width:92%; max-height:92%; border-radius:10px; box-shadow:0 20px 60px rgba(2,6,23,0.9); }
+  </style>
+
+  <!-- Lightbox placeholder (kept at end to be above everything when shown) -->
+  <div id="lightbox" class="lb-back" aria-hidden="true"><img id="lbImage" class="lb-img" alt="Preview"></div>
+
 </body>
 </html>
