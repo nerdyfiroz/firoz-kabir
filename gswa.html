@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GSWA | Projects & Events</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.0/css/all.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #050816, #020617, #000);
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: rgba(2,6,23,0.92);
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #1f2937;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar a {
+      margin: 0 15px;
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .navbar a:hover {
+      color: #fff;
+    }
+
+    /* GSWA Logo */
+    .logo-box {
+      text-align: center;
+      margin-top: 25px;
+      margin-bottom: -10px;
+      animation: logoReveal 1.4s ease forwards;
+    }
+
+    .gswa-logo {
+      width: 160px;
+      height: auto;
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      animation: logoReveal 1.4s ease forwards;
+    }
+
+    @keyframes logoReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(25px) scale(0.92);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    header {
+      text-align: center;
+      padding: 20px 20px 10px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+      color: #38bdf8;
+    }
+
+    section {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h2 {
+      color: #38bdf8;
+      margin-bottom: 15px;
+    }
+
+    /* Line-by-line reveal description */
+    .desc-line {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: revealLine 1.2s ease forwards;
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: #e5e7eb;
+    }
+
+    .desc-line:nth-child(1) { animation-delay: 0.3s; }
+    .desc-line:nth-child(2) { animation-delay: 0.8s; }
+    .desc-line:nth-child(3) { animation-delay: 1.3s; }
+    .desc-line:nth-child(4) { animation-delay: 1.8s; }
+
+    @keyframes revealLine {
+      0% { opacity: 0; transform: translateY(25px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Event cards */
+    .event-card {
+      display: flex;
+      background: rgba(2,6,23,0.9);
+      border: 1px solid #1f2937;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 25px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: eventReveal 1.1s ease forwards;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .event-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(56,189,248,0.2);
+    }
+
+    .event-card:nth-child(1) { animation-delay: 0.3s; }
+    .event-card:nth-child(2) { animation-delay: 0.7s; }
+    .event-card:nth-child(3) { animation-delay: 1.1s; }
+
+    @keyframes eventReveal {
+      0% { opacity: 0; transform: translateY(40px); filter: blur(6px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    .event-img {
+      width: 180px;
+      height: 140px;
+      object-fit: cover;
+      border-right: 1px solid #1f2937;
+    }
+
+    .event-text {
+      padding: 15px;
+    }
+
+    .event-text h3 {
+      color: #38bdf8;
+      margin-bottom: 5px;
+    }
+
+    .event-text p {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Photo gallery */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .photo-card img {
+      width: 100%;
+      border-radius: 10px;
+      border: 2px solid #38bdf8;
+      box-shadow: 0 0 15px rgba(56,189,248,0.15);
+      transition: 0.3s;
+    }
+
+    .photo-card img:hover {
+      transform: scale(1.03);
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      color: #9ca3af;
+      border-top: 1px solid #1f2937;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <a href="#description">About GSWA</a>
+  <a href="#events">Events</a>
+  <a href="#photos">Photos</a>
+</div>
+
+<!-- GSWA Logo -->
+<div class="logo-box">
+  <img src="gswa-logo.png" alt="GSWA Logo" class="gswa-logo">
+</div>
+
+<header>
+  <h1>GSWA — Projects & Events</h1>
+  <p>Showcasing activities, contributions & community development</p>
+</header>
+
+<!-- Organization Description -->
+<section id="description" style="text-align:center;">
+  <div class="desc-line">The premier student development association in Gangachara.</div>
+  <div class="desc-line">We are committed to fostering a powerful, supportive community</div>
+  <div class="desc-line">and delivering comprehensive welfare programs</div>
+  <div class="desc-line">that ensure student success and well-being.</div>
+</section>
+
+<!-- Events Section -->
+<section id="events">
+  <h2>📌 GSWA Events</h2>
+
+  <div class="event-card">
+    <img src="event1.jpg" class="event-img" alt="Leadership Meetup">
+    <div class="event-text">
+      <h3>Leadership Meetup 2024</h3>
+      <p>A gathering of GSWA members discussing ideas, planning community growth, and future contribution.</p>
+    </div>
+  </div>
+
+  <div class="event-card">
+    <img src="event2.jpg" class="event-img" alt="Blockchain Awareness">
+    <div class="event-text">
+      <h3>Blockchain Awareness Program</h3>
+      <p>Introduced blockchain fundamentals to new members to help them enter Web3 with confidence.</p>
+    </div>
+  </div>
+
+  <div class="event-card">
+    <img src="event3.jpg" class="event-img" alt="Community Workshop">
+    <div class="event-text">
+      <h3>Community Building Workshop</h3>
+      <p>Taught strategies for building, managing, and sustaining a strong digital community.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Photo Gallery -->
+<section id="photos">
+  <h2>📸 GSWA Photo Gallery</h2>
+
+  <div class="photo-grid">
+    <div class="photo-card"><img src="photo1.jpg" alt="Event Photo 1"></div>
+    <div class="photo-card"><img src="photo2.jpg" alt="Event Photo 2"></div>
+    <div class="photo-card"><img src="photo3.jpg" alt="Event Photo 3"></div>
+  </div>
+</section>
+
+<footer>
+  © 2025 GSWA — Page by Muhammad Firoz Kabir
+</footer>
+
+</body>
+</html>> <strong>event1.jpg</strong>, <strong>event2.jpg</strong>, <strong>event3.jpg</strong>,  
+    <strong>photo1.jpg</strong>, <strong>photo2.jpg</strong>, <strong>photo3.jpg</strong>.
+  </p>
+</section>
+
+<footer>
+  © 2025 GSWA — Page by Muhammad Firoz Kabir
+</footer>
+
+</body>
+</html>
