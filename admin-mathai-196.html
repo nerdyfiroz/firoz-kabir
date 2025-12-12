@@ -1,165 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="utf-8" />
 <title>Admin Panel - Mathai</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #0f0f0f;
-    color: #fff;
-    padding: 20px;
-  }
-  h1 { color: #00eaff; }
-  h2 { margin-top: 40px; color: #ffdd57; }
-  input, textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 8px;
-    margin-bottom: 12px;
-    border-radius: 6px;
-  }
-  button {
-    background: #00eaff;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  button:hover { opacity: 0.8; }
-  pre {
-    background: #1a1a1a;
-    padding: 15px;
-    border-radius: 6px;
-    white-space: pre-wrap;
-  }
+  :root{--bg:#0f0f0f;--card:#111;--accent:#00eaff;--muted:#ffdd57}
+  body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#fff;margin:0;padding:20px}
+  h1{color:var(--accent);margin:0 0 8px}
+  h2{color:var(--muted);margin-top:36px}
+  input,textarea,button{font-family:inherit}
+  input,textarea{width:100%;padding:10px;border-radius:6px;border:0;margin-top:8px;margin-bottom:12px}
+  textarea{min-height:120px;resize:vertical}
+  button{background:var(--accent);border:0;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:700}
+  pre{background:#111;padding:14px;border-radius:8px;white-space:pre-wrap}
+  .small{font-size:0.9rem;color:#ddd}
+  /* login modal */
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:9999}
+  .card{background:#071018;padding:22px;border-radius:12px;max-width:420px;width:92%;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+  .card h3{margin:0 0 8px;color:var(--accent)}
+  .card p{color:#d0dfe7;margin:0 0 12px}
+  .error{background:#3b0f0f;color:#ffb3b3;padding:8px;border-radius:6px;margin-bottom:10px}
+  .btn-ghost{background:transparent;border:1px solid #1b1b1b;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer}
+  .top-note{opacity:.75;margin-bottom:12px}
 </style>
 </head>
-
 <body>
 
 <h1>🔐 Admin Panel — Mathai</h1>
-<p style="opacity:0.7;">Keep this URL secret. Only you should access this page.</p>
-<hr>
+<p class="top-note">Keep this URL secret. Use the admin password to log in. The password is stored only in your browser session.</p>
+<hr />
 
 <!-- CREATE POST -->
 <h2>Create Blog Post</h2>
-<input id="title" placeholder="Post Title">
-<input id="slug" placeholder="Slug (example: my-first-post)">
-<textarea id="content" placeholder="Write your post content here..." rows="6"></textarea>
-<button onclick="createPost()">Create Post</button>
-
+<input id="title" placeholder="Post Title" />
+<input id="slug" placeholder="Slug (example: my-first-post)" />
+<textarea id="content" placeholder="Write your post content here..."></textarea>
+<button id="btnCreate">Create Post</button>
 <div id="createPostResult"></div>
-<hr>
+<hr />
 
 <!-- UPLOAD IMAGE -->
 <h2>Upload Image</h2>
-<input type="file" id="imageFile">
-<button onclick="uploadImage()">Upload Image</button>
-
+<input type="file" id="imageFile" />
+<button id="btnUpload">Upload Image</button>
 <div id="imageResult"></div>
-<hr>
+<hr />
 
 <!-- VIEW MESSAGES -->
 <h2>Contact Messages</h2>
-<button onclick="loadMessages()">Load Messages</button>
+<button id="btnLoadMessages">Load Messages</button>
 <pre id="messagesBox">Messages will appear here...</pre>
-<hr>
+<hr />
 
 <!-- ANALYTICS -->
 <h2>Analytics</h2>
-<button onclick="loadAnalytics()">Load Analytics</button>
+<button id="btnLoadAnalytics">Load Analytics</button>
 <pre id="analyticsBox">Analytics will appear here...</pre>
 
+<!-- LOGIN OVERLAY -->
+<div id="loginOverlay" class="overlay" style="display:none">
+  <div class="card" role="dialog" aria-modal="true" aria-label="Admin login">
+    <h3>Admin Sign In</h3>
+    <p>Enter the admin secret (the same value you stored as <code>ADMIN_SECRET</code> in Supabase secrets). This value is saved only in your browser session.</p>
+    <div id="loginError" style="display:none" class="error"></div>
+    <input id="adminPwd" placeholder="Admin secret / password" autocomplete="off" />
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <button id="loginBtn">Sign in</button>
+      <button id="logoutBtn" class="btn-ghost">Clear session</button>
+    </div>
+    <p class="small" style="margin-top:10px">If the password is correct the panel unlocks. If it fails, you will be asked to try again.</p>
+  </div>
+</div>
+
 <script>
-// =============================
-// CONFIG
-// =============================
+/*
+  Admin UI script:
+  - Uses sessionStorage to store admin secret for current tab.
+  - Verifies the secret by calling admin function (action=messages).
+  - If verified, unlocks the UI and stores secret in sessionStorage.
+  - change ADMIN_FN to your function URL.
+*/
+
+// ---------- CONFIG ----------
 const ADMIN_FN = "https://rgjqceecxuliovpfvcsg.supabase.co/functions/v1/admin";
-window.ADMIN_SECRET = "";  // You inject via console
 
-// =============================
-// GENERIC ADMIN REQUEST HELPER
-// =============================
+// ---------- helper: get/set secret ----------
+function getSecret() {
+  return sessionStorage.getItem("admin_secret") || "";
+}
+function setSecret(v) {
+  if (v) sessionStorage.setItem("admin_secret", v);
+  else sessionStorage.removeItem("admin_secret");
+  window.ADMIN_SECRET = v; // also set global for old code compatibility
+}
+
+// ---------- generic call helper ----------
 async function callAdmin(action, method="POST", body=null) {
-
-  if (!window.ADMIN_SECRET || window.ADMIN_SECRET.trim() === "") {
-    alert("ERROR: ADMIN_SECRET is empty. Inject it in browser console.");
-    return;
+  const secret = getSecret();
+  if (!secret) {
+    showLogin();
+    throw new Error("Admin secret missing");
   }
-
   const url = `${ADMIN_FN}?action=${action}`;
-
   const res = await fetch(url, {
     method,
     headers: {
       "Content-Type": "application/json",
-      "x-admin-secret": window.ADMIN_SECRET
+      "x-admin-secret": secret
     },
     body: body ? JSON.stringify(body) : null
   });
-
-  return res.json();
+  // try to parse json safely
+  let data;
+  try { data = await res.json(); } catch(e){ data = { error: "Invalid JSON response", status: res.status } }
+  // if unauthorized, remove secret and show login again
+  if (res.status === 401 || (data && (data.code === 401 || data.error === "Unauthorized"))) {
+    setSecret("");
+    showLogin("Wrong admin secret. Please try again.");
+    throw new Error("Unauthorized");
+  }
+  return data;
 }
 
-// =============================
-// CREATE POST
-// =============================
-async function createPost() {
-  const title = document.getElementById("title").value;
-  const slug = document.getElementById("slug").value;
-  const content = document.getElementById("content").value;
+// ---------- UI wiring ----------
+const loginOverlay = document.getElementById("loginOverlay");
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const adminPwd = document.getElementById("adminPwd");
+const loginError = document.getElementById("loginError");
 
-  const result = await callAdmin("createPost", "POST", {
-    title,
-    slug,
-    content,
-    published: true
-  });
-
-  document.getElementById("createPostResult").innerHTML =
-    "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
+function showLogin(msg) {
+  loginError.style.display = msg ? "block" : "none";
+  loginError.textContent = msg || "";
+  loginOverlay.style.display = "flex";
+  adminPwd.value = "";
+  adminPwd.focus();
+}
+function hideLogin() {
+  loginOverlay.style.display = "none";
+  loginError.style.display = "none";
 }
 
-// =============================
-// UPLOAD IMAGE
-// =============================
-async function uploadImage() {
-  const file = document.getElementById("imageFile").files[0];
-  if (!file) return alert("Select an image first!");
-
-  const buf = await file.arrayBuffer();
-  const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
-
-  const result = await callAdmin("uploadImage", "POST", {
-    filename: `img-${Date.now()}-${file.name}`,
-    base64: b64
-  });
-
-  document.getElementById("imageResult").innerHTML =
-    "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
+// called when the user enters the secret
+async function tryLogin() {
+  const val = adminPwd.value.trim();
+  if (!val) {
+    loginError.style.display = "block";
+    loginError.textContent = "Please enter the admin secret.";
+    return;
+  }
+  // temporarily set (only after verification we keep it)
+  // attempt a test call to verify
+  try {
+    // we attempt messages - a safe GET
+    const url = `${ADMIN_FN}?action=messages`;
+    const res = await fetch(url, { method: "GET", headers: { "x-admin-secret": val } });
+    if (res.status === 401) {
+      loginError.style.display = "block";
+      loginError.textContent = "Wrong secret (401). Try again.";
+      return;
+    }
+    // parse response (if 200 -> accepted)
+    try { await res.json(); } catch(e){}
+    setSecret(val);
+    hideLogin();
+    showToast("Admin unlocked");
+  } catch (err) {
+    loginError.style.display = "block";
+    loginError.textContent = "Network error or invalid secret. Try again.";
+    console.error(err);
+  }
 }
 
-// =============================
-// LOAD MESSAGES
-// =============================
-async function loadMessages() {
-  const result = await callAdmin("messages", "GET");
-  document.getElementById("messagesBox").textContent =
-    JSON.stringify(result, null, 2);
+// small toast
+function showToast(msg, t = 2200) {
+  const el = document.createElement("div");
+  el.style.position = "fixed";
+  el.style.right = "12px";
+  el.style.bottom = "12px";
+  el.style.background = "#0b3b3b";
+  el.style.color = "#bff";
+  el.style.padding = "10px 12px";
+  el.style.borderRadius = "8px";
+  el.style.boxShadow = "0 8px 24px rgba(0,0,0,0.6)";
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(), t);
 }
 
-// =============================
-// LOAD ANALYTICS
-// =============================
-async function loadAnalytics() {
-  const result = await callAdmin("analytics", "GET");
-  document.getElementById("analyticsBox").textContent =
-    JSON.stringify(result, null, 2);
-}
+// ---------- wire login buttons ----------
+loginBtn.addEventListener("click", tryLogin);
+adminPwd.addEventListener("keydown", (e)=>{ if(e.key === "Enter") tryLogin(); });
+logoutBtn.addEventListener("click", ()=>{
+  setSecret("");
+  showLogin("Session cleared. Enter secret to continue.");
+});
 
+// ---------- page features (buttons) ----------
+document.getElementById("btnCreate").addEventListener("click", async ()=>{
+  try {
+    const title = document.getElementById("title").value;
+    const slug = document.getElementById("slug").value;
+    const content = document.getElementById("content").value;
+    const r = await callAdmin("createPost","POST",{ title, slug, content, published: true });
+    document.getElementById("createPostResult").innerHTML = "<pre>"+JSON.stringify(r,null,2)+"</pre>";
+  } catch(e) {
+    console.error(e);
+  }
+});
+
+document.getElementById("btnUpload").addEventListener("click", async ()=>{
+  try {
+    const f = document.getElementById("imageFile").files[0];
+    if(!f) return alert("Select file first");
+    const buf = await f.arrayBuffer();
+    const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+    const r = await callAdmin("uploadImage","POST",{ filename: `img-${Date.now()}-${f.name}`, base64: b64 });
+    document.getElementById("imageResult").innerHTML = "<pre>"+JSON.stringify(r,null,2)+"</pre>";
+  } catch(e) { console.error(e); }
+});
+
+document.getElementById("btnLoadMessages").addEventListener("click", async ()=>{
+  try {
+    const r = await callAdmin("messages","GET");
+    document.getElementById("messagesBox").textContent = JSON.stringify(r,null,2);
+  } catch(e){ console.error(e); }
+});
+
+document.getElementById("btnLoadAnalytics").addEventListener("click", async ()=>{
+  try {
+    const r = await callAdmin("analytics","GET");
+    document.getElementById("analyticsBox").textContent = JSON.stringify(r,null,2);
+  } catch(e){ console.error(e); }
+});
+
+// ---------- initial check ----------
+(function init() {
+  // if secret exists in sessionStorage, set global and hide login
+  const existing = getSecret();
+  if (existing) {
+    window.ADMIN_SECRET = existing;
+    // verify existing secret quickly (silently)
+    fetch(`${ADMIN_FN}?action=messages`, { method: "GET", headers: { "x-admin-secret": existing } })
+      .then(res => {
+        if (res.status === 401) { setSecret(""); showLogin(); }
+        else hideLogin();
+      })
+      .catch(()=> showLogin());
+  } else {
+    showLogin();
+  }
+})();
 </script>
 </body>
 </html>
