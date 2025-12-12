@@ -74,38 +74,18 @@
 <pre id="analyticsBox">Analytics will appear here...</pre>
 
 <script>
-// ---------------------------------------------
-// THESE VALUES MUST BE FILLED BY YOU LATER
-// ---------------------------------------------
+// =============================
+// CONFIG
+// =============================
 const ADMIN_FN = "https://rgjqceecxuliovpfvcsg.supabase.co/functions/v1/admin";
-<script>
-// GLOBAL admin secret holder
-window.ADMIN_SECRET = "";
+window.ADMIN_SECRET = "";  // You inject via console
 
-// Helper for API requests
-async function callAdmin(url, method = "POST", body = null) {
-  if (!window.ADMIN_SECRET || window.ADMIN_SECRET.trim() === "") {
-    alert("ERROR: ADMIN_SECRET is empty. Inject it in browser console.");
-    return;
-  }
-
-  const res = await fetch(url, {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-      "x-admin-secret": window.ADMIN_SECRET
-    },
-    body: body ? JSON.stringify(body) : null
-  });
-
-  return res.json();
-}
-</script>
-    // You will inject secret via browser console
-
-// Helper function to make admin-only requests
+// =============================
+// GENERIC ADMIN REQUEST HELPER
+// =============================
 async function callAdmin(action, method="POST", body=null) {
-  if (!ADMIN_SECRET) {
+
+  if (!window.ADMIN_SECRET || window.ADMIN_SECRET.trim() === "") {
     alert("ERROR: ADMIN_SECRET is empty. Inject it in browser console.");
     return;
   }
@@ -124,51 +104,62 @@ async function callAdmin(action, method="POST", body=null) {
   return res.json();
 }
 
+// =============================
 // CREATE POST
+// =============================
 async function createPost() {
   const title = document.getElementById("title").value;
   const slug = document.getElementById("slug").value;
   const content = document.getElementById("content").value;
 
   const result = await callAdmin("createPost", "POST", {
-    title, slug, content, published: true
+    title,
+    slug,
+    content,
+    published: true
   });
 
   document.getElementById("createPostResult").innerHTML =
     "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
 }
 
+// =============================
 // UPLOAD IMAGE
+// =============================
 async function uploadImage() {
   const file = document.getElementById("imageFile").files[0];
   if (!file) return alert("Select an image first!");
 
-  const arrayBuffer = await file.arrayBuffer();
-  const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+  const buf = await file.arrayBuffer();
+  const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
 
   const result = await callAdmin("uploadImage", "POST", {
     filename: `img-${Date.now()}-${file.name}`,
-    base64
+    base64: b64
   });
 
   document.getElementById("imageResult").innerHTML =
     "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
 }
 
+// =============================
 // LOAD MESSAGES
+// =============================
 async function loadMessages() {
   const result = await callAdmin("messages", "GET");
   document.getElementById("messagesBox").textContent =
     JSON.stringify(result, null, 2);
 }
 
+// =============================
 // LOAD ANALYTICS
+// =============================
 async function loadAnalytics() {
   const result = await callAdmin("analytics", "GET");
   document.getElementById("analyticsBox").textContent =
     JSON.stringify(result, null, 2);
 }
-</script>
 
+</script>
 </body>
 </html>
