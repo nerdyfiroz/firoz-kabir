@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Admin Panel - Mathai</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    color: #fff;
+    padding: 20px;
+  }
+  h1 { color: #00eaff; }
+  h2 { margin-top: 40px; color: #ffdd57; }
+  input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+  }
+  button {
+    background: #00eaff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  button:hover { opacity: 0.8; }
+  pre {
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>🔐 Admin Panel — Mathai</h1>
+<p style="opacity:0.7;">Keep this URL secret. Only you should access this page.</p>
+<hr>
+
+<!-- CREATE POST -->
+<h2>Create Blog Post</h2>
+<input id="title" placeholder="Post Title">
+<input id="slug" placeholder="Slug (example: my-first-post)">
+<textarea id="content" placeholder="Write your post content here..." rows="6"></textarea>
+<button onclick="createPost()">Create Post</button>
+
+<div id="createPostResult"></div>
+<hr>
+
+<!-- UPLOAD IMAGE -->
+<h2>Upload Image</h2>
+<input type="file" id="imageFile">
+<button onclick="uploadImage()">Upload Image</button>
+
+<div id="imageResult"></div>
+<hr>
+
+<!-- VIEW MESSAGES -->
+<h2>Contact Messages</h2>
+<button onclick="loadMessages()">Load Messages</button>
+<pre id="messagesBox">Messages will appear here...</pre>
+<hr>
+
+<!-- ANALYTICS -->
+<h2>Analytics</h2>
+<button onclick="loadAnalytics()">Load Analytics</button>
+<pre id="analyticsBox">Analytics will appear here...</pre>
+
+<script>
+// ---------------------------------------------
+// THESE VALUES MUST BE FILLED BY YOU LATER
+// ---------------------------------------------
+const ADMIN_FN = "";      // Your Supabase Edge Function URL
+let ADMIN_SECRET = "";    // You will inject secret via browser console
+
+// Helper function to make admin-only requests
+async function callAdmin(action, method="POST", body=null) {
+  if (!ADMIN_SECRET) {
+    alert("ERROR: ADMIN_SECRET is empty. Inject it in browser console.");
+    return;
+  }
+
+  const url = `${ADMIN_FN}?action=${action}`;
+
+  const res = await fetch(url, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      "x-admin-secret": ADMIN_SECRET
+    },
+    body: body ? JSON.stringify(body) : null
+  });
+
+  return res.json();
+}
+
+// CREATE POST
+async function createPost() {
+  const title = document.getElementById("title").value;
+  const slug = document.getElementById("slug").value;
+  const content = document.getElementById("content").value;
+
+  const result = await callAdmin("createPost", "POST", {
+    title, slug, content, published: true
+  });
+
+  document.getElementById("createPostResult").innerHTML =
+    "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
+}
+
+// UPLOAD IMAGE
+async function uploadImage() {
+  const file = document.getElementById("imageFile").files[0];
+  if (!file) return alert("Select an image first!");
+
+  const arrayBuffer = await file.arrayBuffer();
+  const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+
+  const result = await callAdmin("uploadImage", "POST", {
+    filename: `img-${Date.now()}-${file.name}`,
+    base64
+  });
+
+  document.getElementById("imageResult").innerHTML =
+    "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
+}
+
+// LOAD MESSAGES
+async function loadMessages() {
+  const result = await callAdmin("messages", "GET");
+  document.getElementById("messagesBox").textContent =
+    JSON.stringify(result, null, 2);
+}
+
+// LOAD ANALYTICS
+async function loadAnalytics() {
+  const result = await callAdmin("analytics", "GET");
+  document.getElementById("analyticsBox").textContent =
+    JSON.stringify(result, null, 2);
+}
+</script>
+
+</body>
+</html>
