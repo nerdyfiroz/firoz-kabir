@@ -93,7 +93,7 @@ async function callAdmin(action, method="POST", body=null) {
     method,
     headers: {
       "Content-Type": "application/json",
-      "x-admin-secret": ADMIN_SECRET
+      "x-admin-secret": window.ADMIN_SECRET
     },
     body: body ? JSON.stringify(body) : null
   });
