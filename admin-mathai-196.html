@@ -78,7 +78,30 @@
 // THESE VALUES MUST BE FILLED BY YOU LATER
 // ---------------------------------------------
 const ADMIN_FN = "https://rgjqceecxuliovpfvcsg.supabase.co/functions/v1/admin";
-let ADMIN_SECRET = "";    // You will inject secret via browser console
+<script>
+// GLOBAL admin secret holder
+window.ADMIN_SECRET = "";
+
+// Helper for API requests
+async function callAdmin(url, method = "POST", body = null) {
+  if (!window.ADMIN_SECRET || window.ADMIN_SECRET.trim() === "") {
+    alert("ERROR: ADMIN_SECRET is empty. Inject it in browser console.");
+    return;
+  }
+
+  const res = await fetch(url, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      "x-admin-secret": window.ADMIN_SECRET
+    },
+    body: body ? JSON.stringify(body) : null
+  });
+
+  return res.json();
+}
+</script>
+    // You will inject secret via browser console
 
 // Helper function to make admin-only requests
 async function callAdmin(action, method="POST", body=null) {
