@@ -7,15 +7,10 @@ export default async function handler(req, res) {
 
   try {
     await client.connect();
-    const result = await client.query(
-      "SELECT COUNT(*) FROM visitors"
-    );
+    const result = await client.query("SELECT COUNT(*) FROM visitors");
     await client.end();
-
-    res.status(200).json({
-      count: Number(result.rows[0].count),
-    });
+    res.status(200).json({ count: Number(result.rows[0].count) });
   } catch (err) {
-    res.status(500).json({ error: "DB error" });
+    res.status(500).json({ error: "Database error" });
   }
 }
