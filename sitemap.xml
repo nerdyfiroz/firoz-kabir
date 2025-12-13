@@ -10,5 +10,14 @@
     <loc>https://nerdyfiroz.github.io/firoz-kabir/gswa.html</loc>
     <priority>0.8</priority>
   </url>
+  <url>
+  <loc>https://mdfirozkabir.xyz/blog/</loc>
+  <priority>0.8</priority>
+</url>
+
+<url>
+  <loc>https://mdfirozkabir.xyz/blog/first-post.html</loc>
+  <priority>0.9</priority>
+</url>
 
 </urlset>
