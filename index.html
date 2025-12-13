@@ -12,163 +12,227 @@
   <meta name="author" content="Muhammad Firoz Kabir" />
   <meta name="keywords" content="Muhammad Firoz Kabir, Web Developer, AI, Blockchain, Digital Marketer, Bangladesh" />
 
+  <!-- Canonical (GitHub = main) -->
+  <link rel="canonical" href="https://nerdyfiroz.github.io/firoz-kabir/" />
+
   <!-- Open Graph -->
   <meta property="og:title" content="Muhammad Firoz Kabir – Web Developer & AI Enthusiast" />
   <meta property="og:description" content="Explore projects, skills, and digital community work by Muhammad Firoz Kabir." />
   <meta property="og:image" content="https://nerdyfiroz.github.io/firoz-kabir/preview.png" />
   <meta property="og:url" content="https://nerdyfiroz.github.io/firoz-kabir/" />
   <meta property="og:type" content="website" />
-  
-  <link rel="canonical" href="https://nerdyfiroz.github.io/firoz-kabir/" />
+
+  <!-- Fonts & Icons -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.0/css/all.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <!-- ORIGINAL STYLE (UNCHANGED) -->
+  <!-- ===== ORIGINAL ANIMATED STYLE ===== -->
   <style>
-    /* your full original CSS stays exactly the same */
-    /* only one small SEO helper class added below */
+    :root{
+      --accent:#38bdf8;
+      --accent-2:#7c3aed;
+      --bg-1:#030519;
+      --bg-2:#071233;
+      --panel:rgba(3,6,18,.65);
+      --muted:#9ca3af;
+    }
 
+    html,body{
+      margin:0;
+      font-family:Poppins,Arial,sans-serif;
+      background:linear-gradient(120deg,var(--bg-1),#02102a 50%,#000);
+      color:#e6eef6;
+      overflow-x:hidden;
+    }
+
+    a{color:var(--accent);text-decoration:none}
+
+    /* animated background */
+    .bg-flow{
+      position:fixed;inset:0;
+      background:linear-gradient(90deg,rgba(7,18,51,.2),rgba(3,6,18,.05),rgba(7,60,90,.1));
+      background-size:300% 300%;
+      animation:bgFlow 18s ease infinite;
+      filter:blur(40px);
+      z-index:0;
+    }
+    @keyframes bgFlow{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    header{
+      position:relative;
+      z-index:2;
+      text-align:center;
+      padding:60px 20px 20px;
+    }
+
+    header img.profile{
+      width:130px;height:130px;
+      border-radius:50%;
+      border:3px solid rgba(56,189,248,.3);
+      box-shadow:0 10px 30px rgba(0,0,0,.6);
+    }
+
+    h1{
+      margin:16px 0 6px;
+      color:var(--accent);
+      font-size:28px;
+    }
+
+    .tagline{
+      color:var(--muted);
+      font-size:15px;
+      margin-bottom:8px;
+    }
+
+    /* SEO intro (visual-safe) */
     .seo-intro{
       max-width:720px;
       margin:10px auto;
       font-size:15px;
-      color:#9ca3af;
+      color:var(--muted);
+    }
+
+    nav{
+      margin-top:18px;
+    }
+    nav a{
+      margin:0 10px;
+      font-weight:500;
+    }
+
+    main{
+      position:relative;
+      z-index:2;
+      max-width:900px;
+      margin:auto;
+      padding:20px;
+    }
+
+    section{
+      margin:40px 0;
+      padding:24px;
+      background:linear-gradient(180deg,rgba(3,6,18,.55),rgba(3,6,18,.25));
+      border-radius:14px;
+      box-shadow:0 10px 30px rgba(0,0,0,.6);
+    }
+
+    h2{
+      color:var(--accent);
+      margin-top:0;
+    }
+
+    ul{line-height:1.8}
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      padding:20px;
+      font-size:14px;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ORIGINAL BACKGROUND / EFFECTS (UNCHANGED) -->
-  <div class="bg-flow" aria-hidden="true"></div>
-  <div class="parallax-layer layer-1" aria-hidden="true"></div>
-  <div class="parallax-layer layer-2" aria-hidden="true"></div>
+<div class="bg-flow" aria-hidden="true"></div>
 
-  <header role="banner">
+<header role="banner">
+  <img src="profile.jpg"
+       alt="Muhammad Firoz Kabir - Web Developer and AI Blockchain Enthusiast from Bangladesh"
+       class="profile"
+       loading="lazy">
 
-    <div style="position:relative; display:inline-block;">
-      <img src="profile.jpg"
-           alt="Muhammad Firoz Kabir - Web Developer and AI Blockchain Enthusiast from Bangladesh"
-           class="profile tilt"
-           loading="lazy">
-      <div class="shine"></div>
-    </div>
+  <h1>Muhammad Firoz Kabir</h1>
 
-    <!-- ✅ ONLY ONE H1 -->
-    <h1>Muhammad Firoz Kabir</h1>
+  <div class="tagline">Mathematics • AI • Blockchain • Digital Marketing</div>
 
-    <!-- visual tagline unchanged -->
-    <div class="tagline">
-      <div class="dynamic-run">
-        <span class="run-inner">Mathematics • AI • Blockchain • Digital Marketing</span>
-      </div>
-    </div>
+  <!-- SEO text (no design break) -->
+  <p class="seo-intro">
+    Muhammad Firoz Kabir is a web developer, AI & blockchain enthusiast, and digital
+    marketer from Bangladesh. This website showcases projects, skills, and community work.
+  </p>
 
-    <!-- ✅ SEO INTRO (TEXT ONLY – NO DESIGN CHANGE) -->
-    <p class="seo-intro">
-      Muhammad Firoz Kabir is a web developer, AI & blockchain enthusiast, and digital
-      marketer from Bangladesh. This website showcases projects, skills, and community work.
+  <p><strong>“Together we build. Together we grow.”</strong></p>
+
+  <nav aria-label="Main navigation">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#community">Community</a>
+  </nav>
+</header>
+
+<main>
+
+  <section id="about" itemscope itemtype="https://schema.org/Person">
+    <h2>About Me</h2>
+    <p itemprop="description">
+      I’m Muhammad Firoz Kabir, a web developer and mathematics student at the University of Rajshahi,
+      working with artificial intelligence, blockchain, and digital platforms.
+      I actively work on <a href="#projects">blockchain projects</a> and help grow
+      <a href="#community">online tech communities</a>.
     </p>
+  </section>
 
-    <p><strong>“Together we build. Together we grow.”</strong></p>
+  <section id="skills">
+    <h2>Technical Skills & Expertise</h2>
+    <ul>
+      <li>Web Development</li>
+      <li>Artificial Intelligence (AI)</li>
+      <li>Blockchain & Web3</li>
+      <li>Digital Marketing</li>
+      <li>Community Building</li>
+      <li>Personal Branding</li>
+    </ul>
+  </section>
 
-    <!-- social -->
-    <div class="icon-buttons">
-      <a class="btn icon tilt" href="mailto:firojfk@outlook.com"><i class="fas fa-envelope"></i></a>
-      <a class="btn icon tilt" href="https://www.facebook.com/nerdyfiroj"><i class="fab fa-facebook-f"></i></a>
-      <a class="btn icon tilt" href="https://www.linkedin.com/in/md-firoz-kabir-65a87b393"><i class="fab fa-linkedin-in"></i></a>
-      <a class="btn icon tilt" href="https://github.com/nerdyfiroz"><i class="fab fa-github"></i></a>
-      <a class="btn icon tilt" href="https://t.me/nerdyfiroz"><i class="fab fa-telegram"></i></a>
-    </div>
+  <section id="projects">
+    <h2>Projects & Work</h2>
+    <p><strong>Web3 Testing:</strong> Testing blockchain platforms and decentralized applications.</p>
+    <p><strong>Community Admin:</strong> Managing Web3 and tech communities.</p>
+    <p><strong>GSWA:</strong> Office Secretary.</p>
+  </section>
 
-    <nav class="navbar" aria-label="Main Navigation">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#community">Community</a>
-    </nav>
-  </header>
+  <section id="community">
+    <h2>Growing Community</h2>
+    <p>
+      A strong community transforms ideas into movements and users into innovators.
+      Together we build sustainable digital ecosystems.
+    </p>
+    <p><strong>Together we build. Together we grow.</strong></p>
+  </section>
 
-  <main id="mainContent">
+</main>
 
-    <section id="about" itemscope itemtype="https://schema.org/Person">
-      <h2>About Me</h2>
-      <p itemprop="description">
-        I’m Muhammad Firoz Kabir, a web developer and mathematics student at the University
-        of Rajshahi, working with artificial intelligence, blockchain, and digital platforms.
-        I actively work on <a href="#projects">blockchain projects</a> and help grow
-        <a href="#community">online tech communities</a>.
-      </p>
-    </section>
+<footer>
+  © <span id="year"></span> Muhammad Firoz Kabir — All rights reserved.
+</footer>
 
-    <section id="skills">
-      <h2>Technical Skills & Expertise</h2>
-      <ul>
-        <li>Web Development</li>
-        <li>Artificial Intelligence (AI)</li>
-        <li>Blockchain & Web3</li>
-        <li>Digital Marketing</li>
-        <li>Community Building</li>
-        <li>Personal Branding</li>
-      </ul>
-    </section>
+<!-- Schema (SEO only, invisible) -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "name":"Muhammad Firoz Kabir",
+  "url":"https://nerdyfiroz.github.io/firoz-kabir/",
+  "image":"https://nerdyfiroz.github.io/firoz-kabir/profile.jpg",
+  "jobTitle":"Web Developer",
+  "sameAs":[
+    "https://www.facebook.com/nerdyfiroj",
+    "https://www.linkedin.com/in/md-firoz-kabir-65a87b393",
+    "https://github.com/nerdyfiroz",
+    "https://t.me/nerdyfiroz"
+  ]
+}
+</script>
 
-    <section id="projects">
-      <h2>Projects & Work</h2>
-
-      <div class="card tilt">
-        <h3>Web3 Testing Projects</h3>
-        <p>Testing blockchain platforms and decentralized applications.</p>
-      </div>
-
-      <div class="card tilt">
-        <h3>Community Administration</h3>
-        <p>Managing and supporting Web3 and tech communities.</p>
-      </div>
-
-      <a href="gswa.html" class="card gswa-btn tilt">
-        <h3>GSWA</h3>
-        <p>Office Secretary</p>
-      </a>
-    </section>
-
-    <section id="community">
-      <h2>Growing Community</h2>
-      <p>
-        A strong community transforms ideas into movements and users into innovators.
-        Together we build sustainable digital ecosystems.
-      </p>
-      <p><strong>Together we build. Together we grow.</strong></p>
-    </section>
-
-  </main>
-
-  <footer>
-    © <span id="year"></span> Muhammad Firoz Kabir — All rights reserved.
-  </footer>
-<!-- vercel auto deploy test -->
-
-  <!-- ✅ SCHEMA (NO VISUAL EFFECT) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Muhammad Firoz Kabir",
-    "url": "https://nerdyfiroz.github.io/firoz-kabir/",
-    "image": "https://nerdyfiroz.github.io/firoz-kabir/profile.jpg",
-    "jobTitle": "Web Developer",
-    "sameAs": [
-      "https://www.facebook.com/nerdyfiroj",
-      "https://www.linkedin.com/in/md-firoz-kabir-65a87b393",
-      "https://github.com/nerdyfiroz",
-      "https://t.me/nerdyfiroz"
-    ]
-  }
-  </script>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
