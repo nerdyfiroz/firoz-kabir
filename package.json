@@ -1,4 +1,6 @@
 {
+  "name": "firoz-kabir",
+  "private": true,
   "dependencies": {
     "@neondatabase/serverless": "^0.9.0"
   }
