@@ -224,33 +224,23 @@
   ]
 }
 </script>
+  
   <section id="contact" class="contact-section">
-  <h2>Contact Me</h2>
-  <p>If you have questions, collaboration ideas, or feedback — feel free to reach out.</p>
+  <div class="contact-box">
+    <h2>Contact Me</h2>
+    <p>If you have questions, collaboration ideas, or feedback — feel free to reach out.</p>
 
-  <form name="contact" method="POST" data-netlify="true">
-    <input type="hidden" name="form-name" value="contact">
+    <form name="contact" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="contact">
 
-    <label>
-      Name
-      <input type="text" name="name" required>
-    </label>
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
 
-    <label>
-      Email
-      <input type="email" name="email" required>
-    </label>
-
-    <label>
-      Message
-      <textarea name="message" rows="5" required></textarea>
-    </label>
-
-    <button type="submit">Send Message</button>
-  </form>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
 </section>
-
-
 
 </body>
 </html>
