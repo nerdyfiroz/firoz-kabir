@@ -1,9 +1,6 @@
 backend:
-  name: github
-  repo: nerdyfiroz/firoz-kabir
+  name: git-gateway
   branch: main
-  auth_type: implicit
-  base_url: https://auth.decapcms.org
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
