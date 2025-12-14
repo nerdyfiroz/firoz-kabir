@@ -144,6 +144,75 @@
   margin-right: auto;
   line-height: 1.6;
 }
+    /* Full section center */
+.contact-section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
+}
+
+/* Contact card */
+.contact-box {
+  position: relative;
+  z-index: 10; /* 🔥 THIS FIXES INPUT NOT WORKING */
+  max-width: 420px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+}
+
+/* Text */
+.contact-box h2 {
+  margin-bottom: 10px;
+  color: #3aa9ff;
+}
+
+.contact-box p {
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  color: #ddd;
+}
+
+/* Form */
+.contact-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-box input,
+.contact-box textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.95rem;
+}
+
+.contact-box input:focus,
+.contact-box textarea:focus {
+  outline: 2px solid #3aa9ff;
+}
+
+/* Button */
+.contact-box button {
+  margin-top: 10px;
+  padding: 10px;
+  background: #3aa9ff;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.contact-box button:hover {
+  background: #1f8ae0;
+}
+
 
   </style>
 </head>
