@@ -213,6 +213,69 @@
   background: #1f8ae0;
 }
 
+/* Button */
+.contact-btn {
+  padding: 10px 18px;
+  background: #3aa9ff;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.contact-btn:hover {
+  background: #1f8ae0;
+}
+
+/* Modal background */
+.contact-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Contact box */
+.contact-modal .contact-box {
+  background: rgba(0, 0, 0, 0.85);
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 420px;
+  width: 100%;
+  color: #fff;
+}
+
+/* Close button */
+.close-btn {
+  float: right;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Inputs */
+.contact-box input,
+.contact-box textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+.contact-box button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  background: #3aa9ff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
   </style>
 </head>
@@ -314,6 +377,8 @@
 </main>
 
 <footer>
+<button class="contact-btn" onclick="openContact()">Contact Me</button>
+  <br>
   © <span id="year"></span> Muhammad Firoz Kabir — All rights reserved.
 </footer>
 
@@ -354,6 +419,33 @@
     </form>
   </div>
 </section>
+<div id="contactModal" class="contact-modal">
+  <div class="contact-box">
+    <span class="close-btn" onclick="closeContact()">×</span>
+
+    <h2>Contact Me</h2>
+    <p>If you have questions, collaboration ideas, or feedback — feel free to reach out.</p>
+
+    <form name="contact" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="contact">
+
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</div>
+  <script>
+function openContact() {
+  document.getElementById("contactModal").style.display = "flex";
+}
+
+function closeContact() {
+  document.getElementById("contactModal").style.display = "none";
+}
+</script>
 
 </body>
 </html>
