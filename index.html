@@ -137,6 +137,26 @@ footer{
 .send-btn:hover{
   opacity:.85;
 }
+  #successToast{
+  position:fixed;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:#22c55e;
+  color:#000;
+  padding:12px 18px;
+  border-radius:14px;
+  font-weight:600;
+  opacity:0;
+  pointer-events:none;
+  transition:.4s ease;
+  z-index:999;
+}
+#successToast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
 </style>
 </head>
 
@@ -201,13 +221,19 @@ footer{
 
 <section id="contact" class="panel">
 <h2>Contact</h2>
-<form>
-  <input placeholder="Name">
-  <input placeholder="Email">
-  <textarea placeholder="Message"></textarea>
+<form id="contactForm">
+  <input type="text" name="name" placeholder="Name" required>
+  <input type="email" name="email" placeholder="Email" required>
+  <textarea name="message" placeholder="Message" required></textarea>
+
+  <!-- Honeypot -->
+  <input type="text" name="website" style="display:none">
 
   <button type="submit" class="send-btn">Send Message</button>
+  <p id="formStatus"></p>
 </form>
+
+
 </section>
 
 <footer>© 2025 Muhammad Firoz Kabir</footer>
@@ -325,6 +351,51 @@ function renderPagination(){
   }
 }
 renderBlog();renderPagination();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+  emailjs.init("gPYChMiP6YBUrbnSc"); 
+})();
+</script>
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const status = document.getElementById("formStatus");
+
+  // Honeypot check
+  if(this.website.value !== ""){
+    return; // bot detected, silently stop
+  }
+
+  status.textContent = "Sending...";
+  status.style.color = "#9aa4b2";
+
+  emailjs.sendForm(
+    "service_zn4y7og",
+    "template_m84rjjj",
+    this
+  ).then(() => {
+    showSuccess();        // success animation
+    this.reset();
+  }, () => {
+    status.textContent = "Failed to send message ❌";
+    status.style.color = "#ef4444";
+  });
+});
+</script>
+<div id="successToast">Message sent successfully ✔</div>
+    <script>
+function showSuccess(){
+  const toast = document.getElementById("successToast");
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000);
+}
 </script>
 
 </body>
