@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Muhammad Firoz Kabir | Mathematics • AI • Blockchain</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{
+  --bg1:#050b2e;
+  --bg2:#0a123a;
+  --ink:#e7edf6;
+  --muted:#9aa4b2;
+  --accent:#38bdf8;
+  --accent2:#7c3aed;
+}
+
+/* ===== BASE ===== */
+body{
+  margin:0;
+  font-family:Inter,Arial,sans-serif;
+  color:var(--ink);
+  background:
+    repeating-linear-gradient(0deg,rgba(120,160,255,.06) 0,rgba(120,160,255,.06) 1px,transparent 1px,transparent 60px),
+    repeating-linear-gradient(90deg,rgba(120,160,255,.06) 0,rgba(120,160,255,.06) 1px,transparent 1px,transparent 60px),
+    linear-gradient(120deg,var(--bg1),var(--bg2),#07091c);
+  overflow-x:hidden;
+}
+
+/* ===== MATH BACKGROUND ===== */
+.math-background{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.45;
+}
+.math-background svg{
+  width:100%;
+  height:100%;
+}
+
+/* ===== HEADER ===== */
+header{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:64px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 26px;
+  backdrop-filter:blur(8px);
+  background:rgba(5,11,46,.6);
+  z-index:10;
+}
+
+.logo-wrap{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-wrap img{height:34px}
+.logo-name{opacity:0;transition:.3s;font-weight:600}
+.logo-wrap:hover .logo-name{opacity:1}
+
+.nav-buttons button{
+  margin-left:10px;
+  padding:8px 14px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.2);
+  background:transparent;
+  color:var(--ink);
+  cursor:pointer;
+  font-size:13px;
+}
+.nav-buttons button:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ===== HERO ===== */
+.hero{
+  min-height:100vh;
+  padding-top:80px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+.profile{
+  width:160px;height:160px;border-radius:50%;
+  object-fit:cover;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+h1{margin:20px 0 10px}
+.tag{color:var(--muted)}
+
+/* ===== RISE PANELS ===== */
+.panel{
+  max-width:900px;
+  margin:60px auto;
+  padding:30px;
+  background:rgba(0,0,0,.45);
+  border-radius:18px;
+  transform:translateY(60px);
+  opacity:0;
+  pointer-events:none;
+  transition:.6s ease;
+  position:relative;
+  z-index:2;
+}
+.panel.show{
+  transform:translateY(0);
+  opacity:1;
+  pointer-events:auto;
+}
+.panel h2{color:var(--accent);margin-top:0}
+
+/* ===== BLOG ===== */
+.blog-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:20px;
+}
+.blog-card{
+  background:rgba(10,15,40,.6);
+  padding:18px;
+  border-radius:14px;
+  transform:translateY(30px);
+  opacity:0;
+  transition:.6s ease;
+}
+.blog-card.show{transform:none;opacity:1}
+.blog-card h3{margin:0 0 8px;color:var(--accent)}
+.blog-card p{color:var(--muted);font-size:14px}
+.blog-card a{color:var(--accent)}
+
+.pagination{text-align:center;margin-top:20px}
+.pagination button{
+  margin:0 6px;
+  padding:6px 12px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.2);
+  background:transparent;
+  color:var(--ink);
+  cursor:pointer;
+}
+.pagination button.active{background:var(--accent);color:#000}
+
+/* ===== CONTACT ===== */
+.contact-form input,.contact-form textarea{
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px 0;
+  position:relative;
+  z-index:2;
+}
+
+/* ===== TOGGLE ===== */
+.theme-toggle{
+  position:fixed;
+  left:14px;
+  bottom:14px;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:#000;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:20;
+}
+
+@media(max-width:768px){
+  .math-background{opacity:.25}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== BACKGROUND MATH ===== -->
+<div class="math-background">
+<svg viewBox="0 0 1200 800" preserveAspectRatio="none">
+<defs>
+<pattern id="mathPattern" width="1200" height="300" patternUnits="userSpaceOnUse">
+  <line x1="0" y1="150" x2="1200" y2="150" stroke="rgba(255,255,255,0.12)" />
+
+  <path id="sinPath" d="M0 150 Q150 40 300 150 T600 150 T900 150 T1200 150"
+        fill="none" stroke="rgba(56,189,248,0.7)" stroke-width="2" />
+
+  <path id="cosPath" d="M0 90 Q150 150 300 90 T600 90 T900 90 T1200 90"
+        fill="none" stroke="rgba(124,58,237,0.7)" stroke-width="2" />
+
+  <path d="M0 220 L600 220" stroke="rgba(239,68,68,0.6)" stroke-width="2" />
+  <path d="M600 60 L1200 60" stroke="rgba(34,197,94,0.6)" stroke-width="2" />
+  <circle cx="600" cy="150" r="4" fill="#050b2e" stroke="white" stroke-width="1.5" />
+
+  <text x="40" y="40" fill="rgba(255,255,255,.25)" font-size="18">∫</text>
+  <text x="500" y="30" fill="rgba(255,255,255,.25)" font-size="16">Σ</text>
+  <text x="900" y="260" fill="rgba(255,255,255,.25)" font-size="18">∞</text>
+</pattern>
+</defs>
+<rect width="100%" height="100%" fill="url(#mathPattern)" />
+</svg>
+</div>
+
+<div class="theme-toggle">☀︎</div>
+
+<header>
+  <div class="logo-wrap">
+    <img src="logo.png">
+    <span class="logo-name">Muhammad Firoz Kabir</span>
+  </div>
+  <div class="nav-buttons">
+    <button onclick="openPanel('about')">About</button>
+    <button onclick="openPanel('projects')">Projects</button>
+    <button onclick="openPanel('works')">Works</button>
+    <button onclick="openPanel('blog')">Blog</button>
+    <button onclick="openPanel('contact')">Contact</button>
+  </div>
+</header>
+
+<section class="hero">
+  <img src="profile.jpg" class="profile">
+  <h1>Muhammad Firoz Kabir</h1>
+  <p class="tag">Mathematics • AI • Blockchain • Digital Marketing</p>
+</section>
+
+<section id="about" class="panel">
+<h2>About Me</h2>
+<p>I’m Muhammad Firoz Kabir, a web developer and mathematics student at the University of Rajshahi, working with artificial intelligence, blockchain, and digital platforms.</p>
+</section>
+
+<section id="projects" class="panel">
+<h2>Projects</h2>
+<p><b>Web3 Testing:</b> Testing blockchain platforms and decentralized applications.</p>
+<p><b>Community Manager:</b> Managing Web3 and tech communities.</p>
+</section>
+
+<section id="works" class="panel">
+<h2>Works</h2>
+<p><a href="gswa.html">GSWA – Office Secretary</a></p>
+</section>
+
+<section id="blog" class="panel">
+<h2>Blog</h2>
+<div id="blogGrid" class="blog-grid"></div>
+<div id="pagination" class="pagination"></div>
+</section>
+
+<section id="contact" class="panel">
+<h2>Contact</h2>
+<form class="contact-form" name="contact" method="POST" data-netlify="true">
+<input type="hidden" name="form-name" value="contact">
+<input name="name" placeholder="Name" required>
+<input name="email" type="email" placeholder="Email" required>
+<textarea name="message" placeholder="Message"></textarea>
+<button style="margin-top:12px">Send</button>
+</form>
+</section>
+
+<footer>© 2025 Muhammad Firoz Kabir</footer>
+
+<script>
+function openPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
+  const el=document.getElementById(id);
+  el.classList.add('show');
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+/* background animation (desktop only) */
+if(window.innerWidth>768){
+  let t=0;
+  function animateMath(){
+    t+=0.015;
+    sinPath.setAttribute('d',`M0 ${150+Math.sin(t)*10} Q150 ${40+Math.sin(t)*20} 300 ${150+Math.sin(t)*10} T600 ${150+Math.sin(t)*10} T900 ${150+Math.sin(t)*10} T1200 ${150+Math.sin(t)*10}`);
+    cosPath.setAttribute('d',`M0 ${90+Math.cos(t)*10} Q150 ${150+Math.cos(t)*20} 300 ${90+Math.cos(t)*10} T600 ${90+Math.cos(t)*10} T900 ${90+Math.cos(t)*10} T1200 ${90+Math.cos(t)*10}`);
+    requestAnimationFrame(animateMath);
+  }
+  animateMath();
+}
+
+/* BLOG DATA (static friendly) */
+const POSTS_PER_PAGE=4;
+let currentPage=1;
+const posts=[
+  {title:\"First Post\",description:\"Read my first blog post.\",url:\"/blog/first-post.html\"}
+];
+
+function renderBlog(){
+  const grid=document.getElementById('blogGrid');
+  grid.innerHTML='';
+  const start=(currentPage-1)*POSTS_PER_PAGE;
+  const end=start+POSTS_PER_PAGE;
+  posts.slice(start,end).forEach(p=>{
+    const c=document.createElement('div');
+    c.className='blog-card';
+    c.innerHTML=`<h3>${p.title}</h3><p>${p.description}</p><a href=\"${p.url}\">Read more →</a>`;
+    grid.appendChild(c);
+    setTimeout(()=>c.classList.add('show'),80);
+  });
+}
+function renderPagination(){
+  const pag=document.getElementById('pagination');
+  pag.innerHTML='';
+  const total=Math.ceil(posts.length/POSTS_PER_PAGE);
+  for(let i=1;i<=total;i++){
+    const b=document.createElement('button');
+    b.textContent=i;
+    if(i===currentPage)b.classList.add('active');
+    b.onclick=()=>{currentPage=i;renderBlog();renderPagination()};
+    pag.appendChild(b);
+  }
+}
+renderBlog();renderPagination();
+</script>
+
+</body>
+</html>
