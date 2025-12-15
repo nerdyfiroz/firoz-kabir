@@ -156,6 +156,21 @@
 <input id="search" placeholder="Search blog..." />
 <div id="blogList"></div>
 <div id="pagination"></div>
+  <div id="blogs"></div>
+
+<script>
+fetch("/api/blogs")
+  .then(res => res.json())
+  .then(data => {
+    blogs.innerHTML = data.map(b => `
+      <article>
+        <h2>${b.title}</h2>
+        <p>${b.content}</p>
+      </article>
+    `).join("");
+  });
+</script>
+
 
 </body>
 </html>
