@@ -1,16 +1,18 @@
-fetch('/blog/posts/')
-  .then(() => {
-    const posts = ['test.md']; // later auto generate
-    const container = document.getElementById('cmsPosts');
+function parseMarkdownWithFrontmatter(md) {
+  let meta = {};
+  let content = md;
 
-    posts.forEach(file => {
-      fetch('/blog/posts/' + file)
-        .then(res => res.text())
-        .then(md => {
-          const html = marked.parse(md);
-          const div = document.createElement('article');
-          div.innerHTML = html;
-          container.appendChild(div);
-        });
+  if (md.startsWith('---')) {
+    const parts = md.split('---');
+    const fm = parts[1].trim().split('\n');
+
+    fm.forEach(line => {
+      const [key, ...rest] = line.split(':');
+      meta[key.trim()] = rest.join(':').trim().replace(/"/g, '');
     });
-  });
+
+    content = parts.slice(2).join('---').trim();
+  }
+
+  return { meta, content };
+}
