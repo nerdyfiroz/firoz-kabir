@@ -2,6 +2,8 @@ backend:
   name: github
   repo: nerdyfiroz/firoz-kabir
   branch: main
+  base_url: "https://firoz-kabir.vercel.app"
+  auth_endpoint: "/api/auth/callback"
 
 media_folder: "blog/images"
 public_folder: "/blog/images"
