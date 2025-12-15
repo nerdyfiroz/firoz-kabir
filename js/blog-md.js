@@ -16,3 +16,15 @@ function parseMarkdownWithFrontmatter(md) {
 
   return { meta, content };
 }
+fetch(postUrl)
+  .then(res => res.text())
+  .then(md => {
+    const { meta, content } = parseMarkdownWithFrontmatter(md);
+
+    document.getElementById('post-title').innerText = meta.title || '';
+    document.getElementById('post-date').innerText = meta.date || '';
+    document.getElementById('post-desc').innerText = meta.description || '';
+
+    document.getElementById('post-content').innerHTML =
+      marked.parse(content);
+  });
