@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Muhammad Firoz Kabir | Mathematics • AI • Blockchain</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{
+  --bg:#0b1020;
+  --c1:#38bdf8;   /* functions */
+  --c2:#7c3aed;   /* nodes */
+  --c3:#f97316;   /* accents */
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:#e7edf6;
+  background:radial-gradient(circle at center,#121a3a,var(--bg));
+  overflow-x:hidden;
+}
+
+/* BACKGROUND CANVAS */
+#bgCanvas{
+  position:fixed;
+  inset:0;
+  z-index:0;
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:64px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 24px;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(10px);
+  z-index:10;
+}
+
+.logo-wrap{display:flex;align-items:center;gap:10px}
+.logo-wrap img{height:34px}
+.logo-name{opacity:0;transition:.3s}
+.logo-wrap:hover .logo-name{opacity:1}
+
+.nav-buttons button{
+  margin-left:8px;
+  padding:8px 14px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.3);
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  padding-top:90px;
+  padding-bottom:40px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  z-index:5;
+}
+
+.profile{
+  width:140px;height:140px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.typing-box{
+  max-width:720px;
+  margin-top:18px;
+  font-size:16px;
+  line-height:1.6;
+  color:#cbd5f5;
+  min-height:70px;
+}
+
+/* PANELS */
+.panel{
+  max-width:900px;
+  margin:40px 16px;
+  padding:24px;
+  background:rgba(0,0,0,.55);
+  border-radius:18px;
+  transform:translateY(40px);
+  opacity:0;
+  pointer-events:none;
+  transition:.5s;
+  position:relative;
+  z-index:5;
+}
+.panel.show{opacity:1;transform:none;pointer-events:auto}
+
+/* BLOG */
+.blog-card{
+  background:linear-gradient(135deg,#0f172a,#020617);
+  border:1px solid rgba(255,255,255,.08);
+  padding:18px;
+  border-radius:16px;
+}
+.blog-card h3{margin:0 0 6px}
+.blog-card p{margin:0 0 10px;color:#9aa4b2}
+.blog-card a{color:var(--c1);font-weight:600;text-decoration:none}
+
+footer{
+  text-align:center;
+  padding:40px 16px;
+  color:#aaa;
+  position:relative;
+  z-index:5;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<header>
+  <div class="logo-wrap">
+    <img src="logo.png">
+    <span class="logo-name">Muhammad Firoz Kabir</span>
+  </div>
+  <div class="nav-buttons">
+    <button onclick="openPanel('projects')">Projects</button>
+    <button onclick="openPanel('works')">Works</button>
+    <button onclick="openPanel('blog')">Blog</button>
+    <button onclick="openPanel('contact')">Contact</button>
+  </div>
+</header>
+
+<section class="hero">
+  <img src="profile.jpg" class="profile">
+  <h1>Muhammad Firoz Kabir</h1>
+  <p>Mathematics • AI • Blockchain • Digital Marketing</p>
+  <div class="typing-box" id="typing"></div>
+</section>
+
+<section id="projects" class="panel">
+<h2>Projects</h2>
+<p><b>Web3 Testing:</b> Testing blockchain platforms and decentralized applications.</p>
+<p><b>Community Manager:</b> Managing Web3 and tech communities.</p>
+</section>
+
+<section id="works" class="panel">
+<h2>Works</h2>
+<p><a href="gswa.html">GSWA – Office Secretary</a></p>
+</section>
+
+<section id="blog" class="panel">
+<h2>Blog</h2>
+<div class="blog-card">
+  <h3>Visit My Blog</h3>
+  <p>Read all articles and updates on my dedicated blog page.</p>
+  <a href="/blog/index.html">Go to Blog →</a>
+</div>
+</section>
+
+<section id="contact" class="panel">
+<h2>Contact</h2>
+<form>
+  <input placeholder="Name">
+  <input placeholder="Email">
+  <textarea placeholder="Message"></textarea>
+  <button type="submit">Send Message</button>
+</form>
+</section>
+
+<footer>© 2025 Muhammad Firoz Kabir</footer>
+
+<script>
+/* NAV */
+function openPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
+  const el=document.getElementById(id);
+  if(el){el.classList.add('show');el.scrollIntoView({behavior:'smooth'})}
+}
+
+/* TYPING EFFECT (ABOUT TEXT – UNCHANGED WORDS) */
+const aboutText =
+"I’m Muhammad Firoz Kabir, a web developer and mathematics student at the University of Rajshahi, working with artificial intelligence, blockchain, and digital platforms.";
+
+const typingEl=document.getElementById("typing");
+let ti=0,del=false;
+function typeLoop(){
+  if(!del){
+    typingEl.textContent=aboutText.slice(0,ti++);
+    if(ti>aboutText.length){setTimeout(()=>del=true,1500)}
+  }else{
+    typingEl.textContent=aboutText.slice(0,ti--);
+    if(ti<0)del=false;
+  }
+  setTimeout(typeLoop,del?30:45);
+}
+typeLoop();
+
+/* ================= BACKGROUND ENGINE ================= */
+const c=document.getElementById("bgCanvas");
+const ctx=c.getContext("2d");
+let w,h,t=0;
+const mouse={x:0,y:0};
+
+function resize(){w=c.width=innerWidth;h=c.height=innerHeight}
+resize();addEventListener("resize",resize);
+
+addEventListener("mousemove",e=>{
+  mouse.x=e.clientX-w/2;
+  mouse.y=e.clientY-h/2;
+});
+addEventListener("touchmove",e=>{
+  mouse.x=e.touches[0].clientX-w/2;
+  mouse.y=e.touches[0].clientY-h/2;
+});
+
+/* NODE NETWORK */
+const NODE_COUNT = innerWidth<600 ? 40 : 80;
+const nodes=[...Array(NODE_COUNT)].map(()=>({
+  x:(Math.random()-0.5)*w,
+  y:(Math.random()-0.5)*h
+}));
+
+function draw(){
+  ctx.clearRect(0,0,w,h);
+  ctx.translate(w/2,h/2);
+
+  /* AXES + LABELS */
+  ctx.strokeStyle="rgba(255,255,255,.12)";
+  ctx.beginPath();ctx.moveTo(-w,0);ctx.lineTo(w,0);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(0,-h);ctx.lineTo(0,h);ctx.stroke();
+  ctx.fillStyle="#fff";
+  ctx.fillText("x",w/2-20,15);
+  ctx.fillText("y",5,-h/2+20);
+  ctx.fillText("θ",mouse.x*0.02,mouse.y*0.02);
+
+  /* FUNCTIONS */
+  ctx.strokeStyle=getCSS("--c1");
+  ctx.beginPath();
+  for(let x=-w/2;x<w/2;x+=12){
+    ctx.lineTo(x,Math.sin(x*0.01+t)*40);
+  }
+  ctx.stroke();
+
+  ctx.strokeStyle=getCSS("--c3");
+  ctx.beginPath();
+  for(let x=-w/2;x<w/2;x+=12){
+    ctx.lineTo(x,Math.cos(x*0.01+t)*30);
+  }
+  ctx.stroke();
+
+  /* NODE NETWORK */
+  nodes.forEach((n,i)=>{
+    ctx.fillStyle=getCSS("--c2");
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,2.2,0,Math.PI*2);
+    ctx.fill();
+
+    if(i%3===0){
+      const n2=nodes[(i+7)%nodes.length];
+      ctx.strokeStyle="rgba(124,58,237,.35)";
+      ctx.beginPath();
+      ctx.moveTo(n.x,n.y);
+      ctx.lineTo(n2.x,n2.y);
+      ctx.stroke();
+    }
+
+    /* subtle interaction */
+    n.x += (mouse.x*0.0003);
+    n.y += (mouse.y*0.0003);
+  });
+
+  ctx.setTransform(1,0,0,1,0,0);
+  t+=0.01;
+  requestAnimationFrame(draw);
+}
+draw();
+
+function getCSS(v){
+  return getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+}
+</script>
+
+</body>
+</html>
