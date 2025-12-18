@@ -102,6 +102,31 @@ footer{
   padding:30px;
   margin-top:50px;
 }
+  /* Image Zoom Modal */
+#imgModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+#imgModal img {
+  max-width: 95%;
+  max-height: 90%;
+  border-radius: 12px;
+}
+
+#imgModal span {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+}
 </style>
 </head>
 
@@ -135,11 +160,11 @@ integrity and innovation.
 <section id="gallery">
 <h2>📸 Convocation Moments</h2>
 <div class="gallery">
-  <img src="images/ru1.jpg" alt="RU Convocation Moment 1">
-  <img src="images/ru2.jpg" alt="RU Convocation Moment 2">
-  <img src="images/ru3.jpg" alt="RU Convocation Moment 3">
-  <img src="images/ru4.jpg" alt="RU Convocation Moment 4">
-  <img src="images/ru5.jpg" alt="RU Convocation Moment 5">
+  <img src="images/ru1.jpg" alt="RU Convocation Moment 1" onclick="openZoom(this)">
+  <img src="images/ru2.jpg" alt="RU Convocation Moment 2" onclick="openZoom(this)">
+  <img src="images/ru3.jpg" alt="RU Convocation Moment 3" onclick="openZoom(this)">
+  <img src="images/ru4.jpg" alt="RU Convocation Moment 4" onclick="openZoom(this)">
+  <img src="images/ru5.jpg" alt="RU Convocation Moment 5" onclick="openZoom(this)">
 </div>
 </section>
 
@@ -156,6 +181,19 @@ celebration of perseverance, dreams fulfilled, and journeys ahead.
 <footer>
 © 2025 Rajshahi University | Convocation Blog | page by MD. Firoz Kabir
 </footer>
+<div id="imgModal" onclick="closeZoom()">
+  <span>&times;</span>
+  <img id="zoomImg">
+</div>
+  <script>
+function openZoom(img){
+  document.getElementById("imgModal").style.display = "flex";
+  document.getElementById("zoomImg").src = img.src;
+}
 
+function closeZoom(){
+  document.getElementById("imgModal").style.display = "none";
+}
+  </script>
 </body>
 </html>
