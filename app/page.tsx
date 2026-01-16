@@ -47,6 +47,8 @@ export default function HomePage() {
           alt="Portrait of Muhammad Firoz Kabir"
           width={144}
           height={144}
+          priority
+          unoptimized
           className="mx-auto h-36 w-36 rounded-full border border-white/20 shadow-glow object-cover"
         />
         <div>

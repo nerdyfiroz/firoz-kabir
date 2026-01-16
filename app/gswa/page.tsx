@@ -38,7 +38,7 @@ export default function GswaPage() {
   return (
     <div className="container pt-28 pb-16 space-y-10">
       <div className="glass p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center">
-        <Image src="/gswa-logo.png" alt="Gangachara Students Welfare Association GSWA Logo" width={140} height={140} className="h-32 w-32" />
+        <Image src="/gswa-logo.png" alt="Gangachara Students Welfare Association GSWA Logo" width={140} height={140} unoptimized className="h-32 w-32" />
         <div>
           <h1 className="section-title">GSWA — Projects & Events</h1>
           <p className="lead">Showcasing activities, contributions & community development</p>
@@ -58,7 +58,7 @@ export default function GswaPage() {
         <div className="grid-2">
           {events.map((event) => (
             <div key={event.title} className="glass p-4 border border-white/10">
-              <Image src={event.img} alt={event.alt} width={640} height={360} className="w-full rounded-lg mb-3" />
+              <Image src={event.img} alt={event.alt} width={640} height={360} unoptimized className="w-full rounded-lg mb-3" />
               <h3 className="text-xl font-semibold text-sky-200">{event.title}</h3>
               <p className="text-slate-200">{event.text}</p>
             </div>
@@ -70,7 +70,7 @@ export default function GswaPage() {
         <h2 className="section-title">📸 GSWA Photo Gallery</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
           {photos.map((src) => (
-            <Image key={src} src={src} alt="GSWA event photo" width={400} height={320} className="w-full h-52 object-cover rounded-lg" />
+            <Image key={src} src={src} alt="GSWA event photo" width={400} height={320} unoptimized className="w-full h-52 object-cover rounded-lg" />
           ))}
         </div>
       </section>

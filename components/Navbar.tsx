@@ -39,7 +39,7 @@ export default function Navbar() {
       <div className="container">
         <div className="mt-4 flex items-center justify-between glass px-4 py-3">
           <div className="flex items-center gap-3">
-            <Image src="/logo.png" alt="MK logo" width={40} height={40} className="h-10 w-10 rounded-full" />
+            <Image src="/logo.png" alt="MK logo" width={40} height={40} unoptimized className="h-10 w-10 rounded-full" />
             <div>
               <div className="font-semibold">Muhammad Firoz Kabir</div>
               <div className="text-sm text-slate-300">Mathematics • AI • Blockchain</div>

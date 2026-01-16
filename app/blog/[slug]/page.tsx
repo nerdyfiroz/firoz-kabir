@@ -56,7 +56,7 @@ const posts = {
         </p>
 
         <div className="rounded-xl overflow-hidden mt-6">
-          <Image src="/blog/images/first-post.jpg" alt="Journey of learning web development" width={1200} height={720} className="w-full" />
+          <Image src="/blog/images/first-post.jpg" alt="Journey of learning web development" width={1200} height={720} unoptimized className="w-full" />
         </div>
       </>
     ),
@@ -93,7 +93,7 @@ const posts = {
           <h2 className="text-2xl font-semibold">📸 Convocation Moments</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {["ru1","ru2","ru3","ru4","ru5"].map((img) => (
-              <Image key={img} src={`/blog/images/${img}.jpg`} alt={`RU Convocation Moment ${img}`} width={640} height={360} className="w-full h-48 object-cover rounded-lg" />
+              <Image key={img} src={`/blog/images/${img}.jpg`} alt={`RU Convocation Moment ${img}`} width={640} height={360} unoptimized className="w-full h-48 object-cover rounded-lg" />
             ))}
           </div>
         </section>
