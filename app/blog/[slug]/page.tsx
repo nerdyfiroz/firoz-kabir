@@ -1,6 +1,13 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 
+export function generateStaticParams() {
+  return [
+    { slug: "first-post" },
+    { slug: "ru-convocation" },
+  ];
+}
+
 const posts = {
   "first-post": {
     title: "How I Started My Journey in Web Development",
