@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <title>Muhammad Firoz Kabir | Mathematics • AI • Blockchain</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Personal site of Muhammad Firoz Kabir covering mathematics, AI, blockchain, and digital projects.">
+<link rel="canonical" href="https://mdfirozkabir.xyz/">
+<meta property="og:title" content="Muhammad Firoz Kabir | Mathematics • AI • Blockchain">
+<meta property="og:description" content="Mathematics student and web developer exploring AI, blockchain, and digital products.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mdfirozkabir.xyz/">
+<meta property="og:image" content="https://mdfirozkabir.xyz/profile.jpg">
+<meta name="theme-color" content="#0b1020">
 
 <style>
 :root{
@@ -20,6 +28,10 @@ body{
   background:radial-gradient(circle at center,#121a3a,var(--bg));
   overflow-x:hidden;
 }
+
+*{box-sizing:border-box}
+.skip-link{position:absolute;left:-999px;top:-999px;background:#fff;color:#0b1020;padding:10px 12px;border-radius:10px;font-weight:700;z-index:9999}
+.skip-link:focus{left:12px;top:12px}
 
 /* BACKGROUND CANVAS */
 #bgCanvas{
@@ -55,7 +67,9 @@ header{
   background:transparent;
   color:#fff;
   cursor:pointer;
+  transition:all .2s ease;
 }
+.nav-buttons button:focus-visible,.nav-buttons button:hover{border-color:var(--c1);color:var(--c1);outline:none}
 
 /* HERO */
 .hero{
@@ -75,6 +89,7 @@ header{
   width:140px;height:140px;
   border-radius:50%;
   object-fit:cover;
+  border:2px solid rgba(255,255,255,.3);
 }
 
 .typing-box{
@@ -113,6 +128,35 @@ header{
 .blog-card p{margin:0 0 10px;color:#9aa4b2}
 .blog-card a{color:var(--c1);font-weight:600;text-decoration:none}
 
+/* CONTACT */
+form.contact-form{display:grid;gap:12px;margin-top:12px}
+form.contact-form label{display:flex;flex-direction:column;gap:6px;text-align:left;font-weight:600;color:#d6e0ff}
+form.contact-form input,form.contact-form textarea{
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(0,0,0,.35);
+  color:#fff;
+}
+form.contact-form input:focus,form.contact-form textarea:focus{outline:2px solid var(--c1);border-color:var(--c1)}
+form.contact-form button{
+  justify-self:flex-start;
+  padding:10px 16px;
+  border-radius:12px;
+  background:linear-gradient(120deg,var(--c1),var(--c3));
+  border:0;
+  color:#0b1020;
+  font-weight:700;
+  cursor:pointer;
+}
+form.contact-form button:hover{filter:brightness(1.05)}
+
+@media(max-width:640px){
+  header{flex-direction:column;height:auto;gap:8px;padding:12px 14px}
+  .nav-buttons{width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+  .nav-buttons button{margin:0;width:100%}
+}
+
 footer{
   text-align:center;
   padding:40px 16px;
@@ -125,23 +169,25 @@ footer{
 
 <body>
 
+<a href="#projects" style="position:absolute;left:-999px;top:-999px" class="skip-link">Skip to content</a>
+
 <canvas id="bgCanvas"></canvas>
 
 <header>
   <div class="logo-wrap">
-    <img src="logo.png">
+    <img src="logo.png" alt="MK logo">
     <span class="logo-name">Muhammad Firoz Kabir</span>
   </div>
-  <div class="nav-buttons">
-    <button onclick="openPanel('projects')">Projects</button>
-    <button onclick="openPanel('works')">Works</button>
-    <button onclick="openPanel('blog')">Blog</button>
-    <button onclick="openPanel('contact')">Contact</button>
+  <div class="nav-buttons" role="navigation" aria-label="Main">
+    <button type="button" onclick="openPanel('projects')">Projects</button>
+    <button type="button" onclick="openPanel('works')">Works</button>
+    <button type="button" onclick="openPanel('blog')">Blog</button>
+    <button type="button" onclick="openPanel('contact')">Contact</button>
   </div>
 </header>
 
 <section class="hero">
-  <img src="profile.jpg" class="profile">
+  <img src="profile.jpg" class="profile" alt="Portrait of Muhammad Firoz Kabir">
   <h1>Muhammad Firoz Kabir</h1>
   <p>Mathematics • AI • Blockchain • Digital Marketing</p>
   <div class="typing-box" id="typing"></div>
@@ -169,11 +215,19 @@ footer{
 
 <section id="contact" class="panel">
 <h2>Contact</h2>
-<form>
-  <input placeholder="Name">
-  <input placeholder="Email">
-  <textarea placeholder="Message"></textarea>
+<p>If you prefer email, drop a note below. This form only simulates sending on the static site.</p>
+<form class="contact-form" onsubmit="handleContact(event)">
+  <label>Full name
+    <input name="name" placeholder="Name" autocomplete="name" required>
+  </label>
+  <label>Email
+    <input name="email" type="email" placeholder="Email" autocomplete="email" required>
+  </label>
+  <label>Message
+    <textarea name="message" placeholder="Message" rows="4" required></textarea>
+  </label>
   <button type="submit">Send Message</button>
+  <div id="contactStatus" aria-live="polite" style="color:var(--c1);"></div>
 </form>
 </section>
 
@@ -204,6 +258,16 @@ function typeLoop(){
   setTimeout(typeLoop,del?30:45);
 }
 typeLoop();
+
+/* CONTACT HANDLER (STATIC) */
+function handleContact(e){
+  e.preventDefault();
+  const form=new FormData(e.target);
+  const name=form.get("name");
+  const status=document.getElementById("contactStatus");
+  status.textContent=`Thanks, ${name}! I’ll get back to you soon.`;
+  e.target.reset();
+}
 
 /* ================= BACKGROUND ENGINE ================= */
 const c=document.getElementById("bgCanvas");

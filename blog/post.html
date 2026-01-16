@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Blog Post</title>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
@@ -14,7 +14,18 @@
   <hr>
 
   <div id="post-content"></div>
+  <script>
+  // Minimal safe renderer: expects ?title=...&desc=...&date=...&content=...
+  const params = new URLSearchParams(location.search);
+  const title = params.get("title") || "Blog Post";
+  const desc = params.get("desc") || "";
+  const date = params.get("date") || "";
+  const content = params.get("content") || "Select a post from the blog list.";
 
-  <script src="blog-post.js"></script>
+  document.getElementById("post-title").textContent = title;
+  document.getElementById("post-desc").textContent = desc;
+  document.getElementById("post-date").textContent = date;
+  document.getElementById("post-content").textContent = content;
+  </script>
 </body>
 </html>

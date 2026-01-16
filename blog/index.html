@@ -5,6 +5,7 @@
   <title>Blog | Muhammad Firoz Kabir</title>
   <meta name="description" content="Thoughts on Web Development, AI, Blockchain & Community by Muhammad Firoz Kabir">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://mdfirozkabir.xyz/blog/">
 
   <style>
     body {
@@ -45,10 +46,18 @@
       text-align: center;
       color: #6e7681;
     }
+
+    .notice{
+      background:#111827;
+      border:1px solid #30363d;
+      padding:14px 16px;
+      border-radius:10px;
+      color:#9ca3af;
+    }
   </style>
 </head>
 
-<body>
+<body data-cms-endpoint="">
 <div class="container">
 
 <header>
@@ -83,8 +92,8 @@
 
 </main>
 
-<!-- 🔹 CMS BLOGS -->
-<section id="cmsPosts"></section>
+<!-- 🔹 CMS BLOGS (optional) -->
+<section id="cmsPosts" aria-live="polite"></section>
 
 <footer>
   © Muhammad Firoz Kabir
@@ -92,25 +101,33 @@
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="../js/blog-md.js"></script>
-<div id="posts"></div>
+<script>
+// OPTIONAL CMS POSTS (progressive enhancement)
+const cmsEndpoint = document.body.dataset.cmsEndpoint; // set this to your API URL when ready
+const cmsSection = document.getElementById("cmsPosts");
 
-</script>
- 
-  <script>
-fetch("https://ADMIN-VERCEL-URL/api/get-posts")
-  .then(r => r.json())
-  .then(posts => {
-    document.getElementById("posts").innerHTML =
-      posts.map(p => `
+if (cmsEndpoint) {
+  fetch(cmsEndpoint)
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(posts => {
+      if (!Array.isArray(posts) || !posts.length) {
+        cmsSection.innerHTML = "";
+        return;
+      }
+      cmsSection.innerHTML = posts.map(post => `
         <article>
-          <h2>${p.title}</h2>
-          <p>${p.description || ""}</p>
-          <div>${p.content}</div>
+          <h2>${post.title ?? "Untitled"}</h2>
+          <p>${post.description ?? ""}</p>
+          <div>${post.content ?? ""}</div>
         </article>
       `).join("");
-  });
+    })
+    .catch(err => {
+      cmsSection.innerHTML = `<div class="notice">CMS feed unavailable (${err}). Static posts remain above.</div>`;
+    });
+} else {
+  cmsSection.innerHTML = '<div class="notice">CMS posts will appear here when an endpoint is configured.</div>';
+}
 </script>
 
 </body>
