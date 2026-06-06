@@ -105,5 +105,5 @@ export default function BackgroundCanvas() {
     };
   }, []);
 
-  return <canvas ref={ref} className="fixed inset-0 -z-10" />;
+  return <canvas ref={ref} className="fixed inset-0 -z-10 pointer-events-none" />;
 }
