@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2020",
     "lib": [
       "dom",
       "dom.iterable",
@@ -34,11 +34,26 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "data/**/*.ts",
+    "tailwind.config.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "out",
+    "contracts",
+    "scripts",
+    "test",
+    "hardhat.config.ts",
+    "lib/contracts.ts",
+    "app/providers.tsx",
+    "components/CollectionStatus.tsx",
+    "components/MintPanel.tsx",
+    "components/PunkGallery.tsx",
+    "components/WalletControl.tsx"
   ]
 }

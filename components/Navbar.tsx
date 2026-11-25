@@ -1,119 +1,181 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
-import type React from "react";
+import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
+import { Icon } from "@/components/Icons";
+import { PROFILE } from "@/data/portfolio";
 
-const links = [
-  { href: "/", label: "Home" },
+const primaryLinks = [
+  { href: "/#about", label: "About" },
+  { href: "/#micro1-skills", label: "micro1" },
+  { href: "/#certifications", label: "Certifications" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#experience", label: "Experience" },
   { href: "/#projects", label: "Projects" },
-  { href: "/#works", label: "Works" },
   { href: "/blog", label: "Blog" },
-  { href: "/#contact", label: "Contact" },
   { href: "/gswa", label: "GSWA" },
-  { href: "/about", label: "About" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 18);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
 
   const isActive = (href: string) => {
-    const baseHref = href.split("#")[0];
-    return pathname === baseHref;
+    if (href.startsWith("/#")) return false;
+    const cleanPath = pathname.replace(/\/$/, "") || "/";
+    const cleanHref = href.replace(/\/$/, "") || "/";
+    return cleanPath === cleanHref || (cleanHref !== "/" && cleanPath.startsWith(cleanHref));
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-30">
-      <a
-        href="#main"
-        className="skip-link"
-        style={{ position: "absolute", left: "-999px", top: "-999px" }}
-        onFocus={(e: React.FocusEvent<HTMLAnchorElement>) => {
-          e.currentTarget.style.left = "12px";
-          e.currentTarget.style.top = "12px";
-        }}
-        onBlur={(e: React.FocusEvent<HTMLAnchorElement>) => {
-          e.currentTarget.style.left = "-999px";
-          e.currentTarget.style.top = "-999px";
-        }}
-      >
+    <header className="fixed top-0 inset-x-0 z-40">
+      <a href="#main" className="skip-link">
         Skip to content
       </a>
+
       <div className="container">
-        <div className="mt-4 flex flex-col glass px-4 py-3 transition-all duration-300">
-          <div className="flex items-center justify-between w-full">
-            <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <Image src="/logo.png" alt="MK logo" width={40} height={40} unoptimized className="h-10 w-10 rounded-full" />
-              <div>
-                <div className="font-semibold text-sm sm:text-base whitespace-nowrap">Muhammad Firoz Kabir</div>
-                <div className="text-xs text-slate-300 hidden sm:block">Mathematics • AI • Blockchain</div>
+        <div
+          className={`mt-3 flex items-center justify-between rounded-2xl border px-4 py-2.5 backdrop-blur-xl transition-all duration-300 ${
+            scrolled
+              ? "border-sky-400/20 bg-slate-950/85 shadow-[0_14px_40px_-16px_rgba(2,6,23,0.9)]"
+              : "border-white/10 bg-slate-950/60"
+          }`}
+        >
+          <Link
+            href="/"
+            className="flex items-center gap-3 group focus-visible:outline-none"
+            aria-label={`${PROFILE.name} — Home`}
+          >
+            <div className="relative">
+              <Image
+                src="/logo.png"
+                alt="Md. Firoz Kabir logo"
+                width={38}
+                height={38}
+                unoptimized
+                className="h-9 w-9 rounded-full border border-sky-400/40 object-cover transition-transform duration-200 group-hover:scale-105"
+              />
+              <span
+                className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-slate-950 bg-emerald-400"
+                aria-hidden="true"
+              />
+            </div>
+            <div className="leading-tight">
+              <div className="font-display text-sm sm:text-base font-bold tracking-tight text-white group-hover:text-sky-300 transition-colors">
+                {PROFILE.name}
               </div>
-            </Link>
-            <nav className="hidden md:flex items-center gap-3" aria-label="Main">
-              {links.map((link) => (
+              <div className="hidden sm:block text-[11px] font-medium text-slate-400">
+                Mathematics • AI • Web3 • Full-Stack
+              </div>
+            </div>
+          </Link>
+
+          <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+            {primaryLinks.map((link) => {
+              const active = isActive(link.href);
+              return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3 py-2 text-sm transition-colors ${
-                    isActive(link.href) ? "text-white" : "text-slate-200 hover:text-white"
+                  className={`relative rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+                    active
+                      ? "text-white bg-white/10"
+                      : "text-slate-300 hover:text-white hover:bg-white/[0.06]"
                   }`}
                 >
                   {link.label}
-                  {isActive(link.href) && (
+                  {active && (
                     <motion.span
-                      layoutId="nav-underline"
-                      className="absolute left-0 right-0 -bottom-1 h-0.5 bg-gradient-to-r from-sky-400 via-violet-400 to-orange-400"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
+                      layoutId="nav-active-bar"
+                      className="absolute inset-x-2 -bottom-0.5 h-0.5 rounded-full bg-gradient-to-r from-sky-400 via-indigo-400 to-violet-400"
                     />
                   )}
                 </Link>
-              ))}
-            </nav>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden flex items-center justify-center p-2 rounded-lg text-slate-200 hover:text-white hover:bg-white/5 transition-colors focus:outline-none"
-              aria-label="Toggle navigation menu"
-              aria-expanded={isOpen}
+              );
+            })}
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <Link
+              href="/#contact"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-sky-400 via-indigo-500 to-violet-500 px-3.5 py-2 text-xs font-semibold text-white shadow-md shadow-sky-500/20 hover:brightness-110 transition"
             >
-              <div className="w-5 h-4 flex flex-col justify-between items-center relative">
-                <span className={`w-full h-0.5 bg-current rounded transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
-                <span className={`w-full h-0.5 bg-current rounded transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`} />
-                <span className={`w-full h-0.5 bg-current rounded transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
-              </div>
+              <span>Contact Me</span>
+              <Icon name="arrow-right" size={14} />
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setMobileOpen((prev) => !prev)}
+              className="inline-flex lg:hidden items-center justify-center rounded-xl border border-white/15 bg-white/5 p-2 text-slate-200 hover:bg-white/10 hover:text-white transition"
+              aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav-drawer"
+            >
+              <Icon name={mobileOpen ? "close" : "menu"} size={20} />
             </button>
           </div>
-          <AnimatePresence>
-            {isOpen && (
-              <motion.nav
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
-                className="md:hidden flex flex-col gap-1 mt-3 pt-3 border-t border-white/10 overflow-hidden"
-                aria-label="Mobile"
-              >
-                {links.map((link) => (
+        </div>
+
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.nav
+              id="mobile-nav-drawer"
+              aria-label="Mobile navigation"
+              initial={{ opacity: 0, y: -10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="lg:hidden mt-2 rounded-2xl border border-white/15 bg-slate-950/95 p-4 backdrop-blur-xl shadow-2xl"
+            >
+              <div className="grid grid-cols-2 gap-2">
+                {primaryLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`px-3 py-2 text-sm rounded-lg transition-colors ${
-                      isActive(link.href) ? "bg-white/10 text-white font-semibold" : "text-slate-200 hover:text-white hover:bg-white/5"
+                    onClick={() => setMobileOpen(false)}
+                    className={`rounded-xl px-3 py-2.5 text-sm font-medium transition ${
+                      isActive(link.href)
+                        ? "bg-sky-500/15 text-sky-200 border border-sky-400/30"
+                        : "bg-white/[0.04] text-slate-200 hover:bg-white/10 hover:text-white border border-white/5"
                     }`}
                   >
                     {link.label}
                   </Link>
                 ))}
-              </motion.nav>
-            )}
-          </AnimatePresence>
-        </div>
+                <Link
+                  href="/about"
+                  onClick={() => setMobileOpen(false)}
+                  className="rounded-xl px-3 py-2.5 text-sm font-medium bg-white/[0.04] text-slate-200 hover:bg-white/10 hover:text-white border border-white/5"
+                >
+                  Full Bio
+                </Link>
+                <Link
+                  href="/#contact"
+                  onClick={() => setMobileOpen(false)}
+                  className="rounded-xl px-3 py-2.5 text-sm font-semibold text-center bg-gradient-to-r from-sky-500 to-violet-500 text-white"
+                >
+                  Contact Me
+                </Link>
+              </div>
+            </motion.nav>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );
