@@ -1,0 +1,11 @@
+{
+  "name": "firoz-kabir",
+  "compatibility_date": "2026-11-23",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}
