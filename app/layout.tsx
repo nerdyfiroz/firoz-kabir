@@ -57,6 +57,14 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: PROFILE.name, url: PROFILE.siteUrl }],
   creator: PROFILE.name,
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   alternates: {
     canonical: "/",
   },
