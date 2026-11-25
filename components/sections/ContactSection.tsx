@@ -8,7 +8,6 @@ import { PROFILE } from "@/data/portfolio";
 
 export default function ContactSection() {
   const [statusMessage, setStatusMessage] = useState<string>("");
-  const [copiedSummary, setCopiedSummary] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,16 +18,6 @@ export default function ContactSection() {
       `Thank you, ${name || "there"}! Your ${topic.toLowerCase()} note has been captured locally on this static portfolio. For direct technical collaboration, you can also reach me via GitHub (@nerdyfiroz).`
     );
     e.currentTarget.reset();
-  };
-
-  const copyProfileLink = async () => {
-    try {
-      await navigator.clipboard.writeText(PROFILE.siteUrl);
-      setCopiedSummary(true);
-      window.setTimeout(() => setCopiedSummary(false), 2500);
-    } catch {
-      setCopiedSummary(false);
-    }
   };
 
   return (
@@ -86,21 +75,6 @@ export default function ContactSection() {
                     </span>
                     <Icon name="arrow-up-right" size={15} className="text-slate-400" />
                   </a>
-
-                  <button
-                    type="button"
-                    onClick={copyProfileLink}
-                    className="w-full flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-slate-200 hover:border-sky-400/50 hover:text-white transition text-left"
-                  >
-                    <span className="flex items-center gap-2.5">
-                      <Icon name="globe" size={18} className="text-violet-300" />
-                      <span>Portfolio · mdfirozkabir.xyz</span>
-                    </span>
-                    <span className="inline-flex items-center gap-1 text-xs text-sky-300">
-                      <Icon name={copiedSummary ? "check" : "copy"} size={14} />
-                      <span>{copiedSummary ? "Copied" : "Copy"}</span>
-                    </span>
-                  </button>
 
                   <div className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-xs text-slate-300">
                     <Icon name="map-pin" size={16} className="text-emerald-400 shrink-0" />

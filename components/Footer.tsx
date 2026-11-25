@@ -58,15 +58,6 @@ export default function Footer() {
                 <Icon name="github" size={15} />
                 <span>github.com/nerdyfiroz</span>
               </a>
-              <a
-                href={PROFILE.siteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-3.5 py-2 text-xs font-medium text-slate-200 hover:border-sky-400/50 hover:text-white transition"
-              >
-                <Icon name="globe" size={15} />
-                <span>mdfirozkabir.xyz</span>
-              </a>
             </div>
           </div>
 

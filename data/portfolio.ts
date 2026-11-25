@@ -491,7 +491,6 @@ export const PROJECTS: ProjectItem[] = [
     stack: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "Framer Motion", "SEO"],
     role: "Full-Stack Web Developer",
     links: [
-      { label: "Live Site", href: "https://mdfirozkabir.xyz", external: true },
       { label: "GitHub Repo", href: "https://github.com/nerdyfiroz/firoz-kabir", external: true },
     ],
   },
