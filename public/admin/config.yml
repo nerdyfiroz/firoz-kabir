@@ -1,0 +1,22 @@
+backend:
+  name: github
+  repo: nerdyfiroz/firoz-kabir
+  branch: main
+  base_url: "https://firoz-kabir.vercel.app"
+  auth_endpoint: "/api/auth/callback"
+
+media_folder: "public/blog/images"
+public_folder: "/blog/images"
+
+collections:
+  - name: "posts"
+    label: "Blog Posts"
+    folder: "blog/posts"
+    create: true
+    extension: "md"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }
